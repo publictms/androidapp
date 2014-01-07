@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body ng-app="myApp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="img-responsive center-block" src="img/logo.jpg" alt="logo" />
+                </div>
+                <div class="col-md-6">
+                    <h1>Welkom</h1>
+                    <form ng-submit="login()" name="loginForm">
+                    <div class="form-group">
+                        <label class="sr-only" for="username">Gebruikersnaam</label>
+                        <input id="username" data-ng-model="username" class="form-control input-lg" type="text" placeholder="gebruikersnaam" required/>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="password">Paswoord</label>
+                        <input id="password" data-ng-model="password" class="form-control input-lg" type="password" placeholder="paswoord" required/>
+                    </div>
+                    <div class="form-group">
+                        <!--<button class="btn btn-success btn-lg pull-right" type="submit" data-ng-disabled="loginForm.$invalid">AANMELDEN</button>-->
+                        <a class="btn btn-success btn-lg pull-right" href="index.html#/user" data-transition="flip">AANMELDEN <span class="glyphicon glyphicon-log-in"></span></a>
+                    </div>
+                    <div class="form-group">
+                        <!--<div class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span>   Gebruikersnaam of paswoord is incorrect</div>
+                        <div ng-view></div>-->
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/angular/angular-route.js"></script>
+        <script src="js/angular/app.js"></script>
+        <script src="js/angular/services.js"></script>
+        <script src="js/angular/controllers.js"></script>
+        <script src="js/angular/filters.js"></script>
+        <script src="js/angular/directives.js"></script>
+        <script src="js/jquery/jqtouch-jquery.js"></script>
+        <script src="js/jquery/jqtouch.js"></script>
+        <script src="lib/jquery/jquery-1.7.js"></script>
+        <script src="lib/jquery/zepto.js"></script>
+    </body>
+</html>

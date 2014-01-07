@@ -1,0 +1,29 @@
+<div class="col-md-12">
+    <div class="form-group">
+        <table class="table table-striped">
+            <tr ng-repeat="opdracht in opdrachten">
+                <td>
+                    {{opdracht.type}}
+                </td>
+                <td>
+                    {{opdracht.lading}}
+                </td>
+                <td>
+                    {{opdracht.klant}}
+                </td>
+                <td>
+                    {{opdracht.adres}}
+                </td>
+                <td>
+                    <select name="flip-1" id="flip-1" data-role="slider">
+                        <option value="off">Off</option>
+                        <option value="on">On</option>
+                    </select> 
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group bottom">
+        <a class="btn btn-default btn-lg" href="index.html#/user"><span class="glyphicon glyphicon-arrow-left"></span></a>
+    </div>
+</div>

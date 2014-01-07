@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.2.1.min.css">
+        <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: ['Open+Sans:latin'] }
+        };
+        (function () {
+            var wf = document.createElement('script');
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+
+
+    </script>
+    <style type="text/css">
+        .wf-loading * {
+            opacity: 0;
+        }
+
+        .wf-loading {
+            background: url('Content/images/ajax-loader.gif') no-repeat center center;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .wf-active *,
+        .wf-inactive * {
+        }
+    </style>
+    </head>
+    <body ng-app="myApp">
+        <div class="container">
+            <div class="row">
+                <div ng-view></div>
+            </div>
+        </div>
+
+        <!-- In production use:
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        -->
+         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiGHSmFR0OpOapaB6LPeMHBo2Dk4LQeJQ&sensor=false"></script>
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/angular/angular-route.js"></script>
+        <script src="js/angular/app.js"></script>
+        <script src="js/angular/services.js"></script>
+        <script src="js/angular/controllers.js"></script>
+        <script src="js/angular/filters.js"></script>
+        <script src="js/angular/directives.js"></script>
+        <script src="js/jquery/jqtouch-jquery.js"></script>
+        <script src="js/jquery/jqtouch.js"></script>
+        <script src="lib/jquery/jquery-1.7.js"></script>
+        <script src="js/jquery/zepto.js"></script>
+        <script src="js/jquery/jquery.mobile-1.2.0.min.js"></script>
+    </body>
+</html>
