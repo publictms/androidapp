@@ -17,20 +17,21 @@ config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/admin', {templateUrl: 'partials/administrator/index.html'});
   $routeProvider.when('/admin/administratie', {templateUrl: 'partials/administrator/administratie.html'});
   $routeProvider.when('/admin/masterdata', {templateUrl: 'partials/administrator/masterdata.html'});
-  $routeProvider.when('/admin/klanten', {templateUrl: 'partials/administrator/klanten.html', controller: 'adminCtrl'});
-  $routeProvider.when('/admin/klant/:id', {templateUrl: 'partials/administrator/klant.html', controller: 'detailCtrl'});
-  $routeProvider.when('/admin/new', {templateUrl: 'partials/administrator/addKlant.html', controller: 'addCtrl'});
+  $routeProvider.when('/admin/klanten', {templateUrl: 'partials/administrator/klanten/klanten.html', controller: 'klantCtrl'});
+  $routeProvider.when('/admin/klant/:id', {templateUrl: 'partials/administrator/klanten/detail.html', controller: 'klantCtrl'});
+  $routeProvider.when('/admin/klanten/nieuw', {templateUrl: 'partials/administrator/klanten/nieuw.html', controller: 'klantCtrl'});
   $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/masterdata.html'});
   $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/datum.html'});
   $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'planningCtrl'});
-  $routeProvider.when('/admin/berichten', {templateUrl: 'partials/administrator/berichten.html', controller: 'messageCtrl'});
-  $routeProvider.when('/admin/newmessage', {templateUrl: 'partials/administrator/newMessage.html', controller: 'messageCtrl'});
+  $routeProvider.when('/admin/berichten', {templateUrl: 'partials/administrator/berichten/berichten.html', controller: 'berichtCtrl'});
+  $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'berichtCtrl'});
   
   //USER
   $routeProvider.when('/user', {templateUrl: 'partials/user/index.html'});
   $routeProvider.when('/user/planning', {templateUrl: 'partials/user/planning.html', controller: 'planningCtrl'});
   $routeProvider.when('/user/navigatie', {templateUrl: 'partials/user/navigatie.html'});
-  $routeProvider.when('/user/berichten', {templateUrl: 'partials/user/berichten.html'});
+  $routeProvider.when('/user/berichten', {templateUrl: 'partials/user/berichten.html', controller: 'messageCtrl'});
+  $routeProvider.when('/admin/newmessage', {templateUrl: 'partials/user/newMessage.html', controller: 'messageCtrl'});
   $routeProvider.when('/user/opmerkingen', {templateUrl: 'partials/user/opmerkingen.html'});
   
   $routeProvider.otherwise({redirectTo: 'login.html'});

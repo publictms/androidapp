@@ -7,7 +7,7 @@
                 <p class="list-group-item-text">{{bericht.subject}}</p>
             </a>
         </div>
-        <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/newmessage"><span class="glyphicon glyphicon-plus"></span>&nbsp;NIEUW</a>
+        <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/berichten/nieuw"><span class="glyphicon glyphicon-plus"></span>&nbsp;NIEUW</a>
     </div>
     <div class="form-group bottom">
         <a class="btn btn-default btn-lg" href="index.html#/admin"><span class="glyphicon glyphicon-arrow-left"></span></a>
@@ -24,7 +24,7 @@
         </div>
         <div class="panel-footer text-right">
             <div class="btn-group">
-                <button class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span>&nbsp;VERWIJDEREN</button>
+                <button class="btn btn-danger btn-lg" ng-click="delete()"><span class="glyphicon glyphicon-remove"></span>&nbsp;VERWIJDEREN</button>
                 <button class="btn btn-primary btn-lg" ng-click="answer()"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;BEANTWOORDEN</button>
             </div>
         </div>
