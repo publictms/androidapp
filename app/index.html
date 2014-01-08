@@ -1,53 +1,56 @@
 <!DOCTYPE html>
+<!-- index.html -->
 <html>
     <head>
         <title></title>
+        <!-- Metadata -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/app.css">
         <link rel="stylesheet" href="css/jquery.mobile-1.2.1.min.css">
+        <!-- Google Maps Script -->
         <script type="text/javascript">
-        WebFontConfig = {
-            google: { families: ['Open+Sans:latin'] }
-        };
-        (function () {
-            var wf = document.createElement('script');
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-        })();
+            WebFontConfig = {
+                google: {families: ['Open+Sans:latin']}
+            };
+            (function() {
+                var wf = document.createElement('script');
+                wf.type = 'text/javascript';
+                wf.async = 'true';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(wf, s);
+            })();
 
 
-    </script>
-    <style type="text/css">
-        .wf-loading * {
-            opacity: 0;
-        }
+        </script>
+        <style type="text/css">
+            .wf-loading * {
+                opacity: 0;
+            }
 
-        .wf-loading {
-            background: url('Content/images/ajax-loader.gif') no-repeat center center;
-            height: 100%;
-            overflow: hidden;
-        }
+            .wf-loading {
+                background: url('Content/images/ajax-loader.gif') no-repeat center center;
+                height: 100%;
+                overflow: hidden;
+            }
 
-        .wf-active *,
-        .wf-inactive * {
-        }
-    </style>
+            .wf-active *,
+            .wf-inactive * {
+            }
+        </style>
     </head>
     <body ng-app="myApp">
         <div class="container">
-            <div class="row">
+            <div id="main-row" class="row">
+                <!-- ng-view: in deze 'div' worden de templates ingeladen -->
                 <div ng-view></div>
             </div>
         </div>
 
-        <!-- In production use:
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-        -->
-         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiGHSmFR0OpOapaB6LPeMHBo2Dk4LQeJQ&sensor=false"></script>
+        <!-- Scripts -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiGHSmFR0OpOapaB6LPeMHBo2Dk4LQeJQ&sensor=false"></script>
         <script src="lib/angular/angular.js"></script>
         <script src="lib/angular/angular-route.js"></script>
         <script src="js/angular/app.js"></script>

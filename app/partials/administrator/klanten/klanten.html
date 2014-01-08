@@ -13,6 +13,7 @@
 </div>
 <div class="col-md-6">
     <ul class="list-unstyled">
+        <!-- ng-repeat: Er wordt geïtereerd door de klanten -->
         <li ng-repeat="klant in klanten | filter:query | orderBy:orderProp">
             <div class="form-group">
             <a class="btn text-left btn-primary btn-lg btn-block" href="index.html#/admin/klant/{{klant.id}}">{{klant.name}}</a>

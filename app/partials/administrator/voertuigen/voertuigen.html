@@ -13,7 +13,8 @@
 </div>
 <div class="col-md-6">
     <ul class="list-unstyled">
-        <li ng-repeat="voertuig in voertuigen | filter:query | orderBy:orderProp">
+        <!-- ng-repeat: Er wordt geïtereerd door de voertuigen -->
+        <li ng-repeat="voertuig in voertuigen | filter:query">
             <div class="form-group">
             <a class="btn text-left btn-primary btn-lg btn-block" href="index.html#/admin/voertuig/{{voertuig.VoertuigId}}">{{voertuig.Nummerplaat}}</a>
             </div>

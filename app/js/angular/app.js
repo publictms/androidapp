@@ -1,7 +1,7 @@
 'use strict';
 
 
-// Declare app level module which depends on filters, and services
+// Verklaren app niveau module die afhankelijk is van filters, en diensten
 angular.module('myApp', [
   'ngRoute',
   'myApp.filters',
@@ -13,7 +13,10 @@ config(['$routeProvider', function ($routeProvider) {
         
   //var access = routingConfig.accessLevels;
   
-  //ADMIN
+  // ADMIN
+  // alle navigatie voor de pagina's van het administrator gedeelte
+  // templateUrl: de file die opgeroepen wordt en ingeladen in de view
+  // controller: de controller die de template gebruikt
   $routeProvider.when('/admin', {templateUrl: 'partials/administrator/index.html'});
   $routeProvider.when('/admin/administratie', {templateUrl: 'partials/administrator/administratie.html'});
   $routeProvider.when('/admin/masterdata', {templateUrl: 'partials/administrator/masterdata.html'});
@@ -30,13 +33,17 @@ config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'berichtCtrl'});
   
   //USER
+  // alle navigatie voor de pagina's van het gebruikers gedeelte
+  // templateUrl: de file die opgeroepen wordt en ingeladen in de view
+  // controller: de controller die de template gebruikt
   $routeProvider.when('/user', {templateUrl: 'partials/user/index.html'});
   $routeProvider.when('/user/planning', {templateUrl: 'partials/user/planning.html', controller: 'planningCtrl'});
-  $routeProvider.when('/user/navigatie', {templateUrl: 'partials/user/navigatie.html'});
+  $routeProvider.when('/user/navigatie', {templateUrl: 'partials/user/navigatie.html', controller: 'MapCtrl'});
   $routeProvider.when('/user/berichten', {templateUrl: 'partials/user/berichten.html', controller: 'messageCtrl'});
   $routeProvider.when('/admin/newmessage', {templateUrl: 'partials/user/newMessage.html', controller: 'messageCtrl'});
   $routeProvider.when('/user/opmerkingen', {templateUrl: 'partials/user/opmerkingen.html'});
   
+  // Indien een route niet bestaat wordt er terug naar de loginpagina verwezen
   $routeProvider.otherwise({redirectTo: 'login.html'});
   
   /*$locationProvider.html5Mode(true);

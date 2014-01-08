@@ -2,6 +2,8 @@
     <div class="form-group">
         <button class="btn btn-primary btn-lg btn-block">BERICHTEN</button>
         <div class="list-group">
+            <!-- ng-repeat: Er wordt geïtereerd door de berichten -->
+            <!-- ng-click: click event gekoppeld aan de controller -->
             <a ng-repeat="bericht in berichten" href="" class="list-group-item" ng-click="select(bericht)">
                 <h4 class="list-group-item-heading">{{bericht.GebruikerId}}</h4>
                 <p class="list-group-item-text">{{bericht.BerichtTitel}}</p>
