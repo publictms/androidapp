@@ -3,8 +3,8 @@
         <button class="btn btn-primary btn-lg btn-block">BERICHTEN</button>
         <div class="list-group">
             <a ng-repeat="bericht in berichten" href="" class="list-group-item" ng-click="select(bericht)">
-                <h4 class="list-group-item-heading">{{bericht.sender}}</h4>
-                <p class="list-group-item-text">{{bericht.subject}}</p>
+                <h4 class="list-group-item-heading">{{bericht.GebruikerId}}</h4>
+                <p class="list-group-item-text">{{bericht.BerichtTitel}}</p>
             </a>
         </div>
         <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/berichten/nieuw"><span class="glyphicon glyphicon-plus"></span>&nbsp;NIEUW</a>
@@ -16,10 +16,10 @@
 <div class="col-md-8">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{bericht.subject}}<small class="pull-right">van: {{bericht.sender}}</small></h4>
+            <h4>{{bericht.BerichtTitel}}<small class="pull-right">van: {{bericht.OntvangerId}}</small></h4>
         </div>
         <div class="panel-body">
-            <textarea class="form-control" rows="20" ng-model="bericht.content" disabled>
+            <textarea class="form-control" rows="20" ng-model="bericht.Bericht" disabled>
             </textarea>
         </div>
         <div class="panel-footer text-right">

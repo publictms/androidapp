@@ -44,7 +44,7 @@ angular.module('myApp.controllers', []).
             };
 
             Bericht.getAll = function() {
-                return $http.get('/bericht/' + id).then(function(response) {
+                return $http.get('localhost:8084/publictms/bericht/get/' + id).then(function(response) {
                     var berichten = [];
                     for (var i = 0; i < response.data.length; i++)
                     {
@@ -56,7 +56,7 @@ angular.module('myApp.controllers', []).
 
             Bericht.prototype.create = function() {
                 var bericht = this;
-                return $http.post('/send/', bericht).then(function(response) {
+                return $http.post('localhost:8084/publictms/bericht/send/', bericht).then(function(response) {
                     bericht.id = response.data.id;
                     return bericht;
                 });
