@@ -12,11 +12,12 @@
     </div>
 </div>
 <div class="col-md-6">
+    <button class="btn btn-default btn-lg btn-block">{{test}}</button>
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de voertuigen -->
         <li ng-repeat="voertuig in voertuigen | filter:query">
             <div class="form-group">
-            <a class="btn text-left btn-primary btn-lg btn-block" href="index.html#/admin/voertuig/{{voertuig.VoertuigId}}">{{voertuig.Nummerplaat}}</a>
+            <a class="btn text-left btn-primary btn-lg btn-block" href="index.html#/admin/voertuig/{{voertuig.voertuigid}}">{{voertuig.nummerplaat}}</a>
             </div>
         </li>
     </ul>

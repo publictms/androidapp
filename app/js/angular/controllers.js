@@ -8,7 +8,7 @@ angular.module('myApp.controllers', []).
         // Factory voor de tabel klanten
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
         factory('Klant', function($http) {
-            
+
             // Klasse klant om data te manipuleren
             // Parameter: data
             var Klant = function(data) {
@@ -46,17 +46,16 @@ angular.module('myApp.controllers', []).
 
             return Klant;
         }).
-                
         // Factory voor de tabel berichten
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
         factory('Bericht', function($http) {
-            
+
             // Klasse bericht om data te manipuleren
             // Parameter: data
             var Bericht = function(data) {
                 angular.extend(this, data);
             };
-            
+
             // Methode om alle berichten op te vragen
             Bericht.getAll = function() {
                 return $http.get('http://localhost:8084/publictms/bericht').then(function(response) {
@@ -80,11 +79,10 @@ angular.module('myApp.controllers', []).
 
             return Bericht;
         }).
-                
         // Factory voor de tabel voertuigen
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
         factory('Voertuig', function($http) {
-            
+
             // Klasse voertuig om data te manipuleren
             // Parameter: data
             var Voertuig = function(data) {
@@ -93,7 +91,7 @@ angular.module('myApp.controllers', []).
 
             // Methode om alle voertuigen op te vragen
             Voertuig.getAll = function() {
-                return $http.get('http://localhost:8084/publictms/voertuig/').then(function(response) {
+                return $http.jsonp('http://localhost:8084/publictms/voertuig/get?CALLBACK=JSONP_CALLBACK').then(function(response) {
                     var voertuigen = [];
                     for (var i = 0; i < response.data.length; i++)
                     {
@@ -105,10 +103,10 @@ angular.module('myApp.controllers', []).
 
             // Methode om een voertuig op te vragen
             // Parameter: id
-            Voertuig.get = function(id) {
-                return $http.get('http://localhost:8084/publictms/voertuig/get/' + id).then(function(response) {
+            Voertuig.get = function() {
+                return $http.jsonp('http://localhost:8084/publictms/voertuig/get/1').then(function(response) {
                     return new Voertuig(response.data);
-                });
+                 });
             };
 
             // Methode om een nieuw voertuig toe te voegen
@@ -122,12 +120,11 @@ angular.module('myApp.controllers', []).
 
             return Voertuig;
         }).
-                
         // Controller om de klanten en de functies te koppelen aan de view
         controller('klantCtrl', function($scope, Klant) {
             $scope.klanten = Klant.getAll;
             $scope.orderProp = 'name';
-            
+
             // Een klant toevoegen
             $scope.add = function() {
                 var klant = new Klant();
@@ -135,11 +132,28 @@ angular.module('myApp.controllers', []).
                 klant.create();
             };
         }).
-                
         // Controller om de voertuigen en de functies te koppelen aan de view
-        controller('voertuigCtrl', function($scope, Voertuig) {
-            
-            $scope.voertuigen = Voertuig.getAll();
+        controller('voertuigCtrl', function($scope, $http, Voertuig) {
+             $scope.test = Voertuig.get();
+             $scope.voertuigen = Voertuig.getAll();
+
+            /*$scope.method = 'GET';
+            $scope.url = 'http://localhost:8084/publictms/voertuig/get/1';
+
+            $scope.fetch = function() {
+                $scope.code = null;
+                $scope.response = null;
+
+                $http({method: $scope.method, url: $scope.url, cache: $templateCache}).
+                        success(function(data, status) {
+                            $scope.status = status;
+                            $scope.test = data;
+                        }).
+                        error(function(data, status) {
+                            $scope.test = data || "Request failed";
+                            $scope.status = status;
+                        });
+        };*/
 
             /*$scope.add = function() {
              var voertuig = new Voertuig();
@@ -148,43 +162,43 @@ angular.module('myApp.controllers', []).
              };*/
         }).
         /*controller('detailCtrl', function($scope, $routeParams, Data) {
-            var klanten = Data;
-            $scope.state = true;
-            $scope.klant = klanten[$routeParams.id - 1];
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
-            $scope.edit = function() {
-                $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
-            };
-            $scope.save = function() {
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-            $scope.cancel = function() {
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-        }).*/
-        
+         var klanten = Data;
+         $scope.state = true;
+         $scope.klant = klanten[$routeParams.id - 1];
+         $scope.buttonedit = false;
+         $scope.buttonsave = true;
+         $scope.edit = function() {
+         $scope.state = false;
+         $scope.buttonedit = true;
+         $scope.buttonsave = false;
+         };
+         $scope.save = function() {
+         $scope.state = true;
+         $scope.buttonedit = false;
+         $scope.buttonsave = true;
+         };
+         $scope.cancel = function() {
+         $scope.state = true;
+         $scope.buttonedit = false;
+         $scope.buttonsave = true;
+         };
+         }).*/
+
         // Controller om de berichten en de functies te koppelen aan de view
         controller('berichtCtrl', function($scope, Bericht) {
             $scope.berichten = Bericht.getAll();
             $scope.bericht = Bericht.getAll();
-            
+
             // Een bericht selecteren
             $scope.select = function(bericht) {
                 $scope.bericht = bericht;
             };
-            
+
             // Een bericht beantwoorden
             $scope.answer = function() {
 
             };
-            
+
             // Een bericht verzenden
             $scope.send = function() {
                 var bericht = new Bericht();
@@ -193,7 +207,6 @@ angular.module('myApp.controllers', []).
                 bericht.create();
             }
         }).
-                
         // Controller om de navigatie en de functies te koppelen aan de view
         controller('MapCtrl',
                 function MapCtrl($scope) {
