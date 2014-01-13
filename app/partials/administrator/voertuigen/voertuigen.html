@@ -8,16 +8,16 @@
     </div>
     <div class="form-group bottom">
         <a class="btn btn-default btn-lg" href="index.html#/admin/masterdata"><span class="glyphicon glyphicon-arrow-left"></span></a>
-        <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/voertuigen/nieuw"><span class="glyphicon glyphicon-plus"></span>&nbsp;VOEG TOE</a>
+        <a class="btn btn-success btn-lg pull-right" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>&nbsp;VOEG TOE</a>
     </div>
 </div>
 <div class="col-md-6">
-    <button class="btn btn-default btn-lg btn-block">{{test}}</button>
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de voertuigen -->
         <li ng-repeat="voertuig in voertuigen | filter:query">
             <div class="form-group">
-            <a class="btn text-left btn-primary btn-lg btn-block" href="index.html#/admin/voertuig/{{voertuig.voertuigid}}">{{voertuig.nummerplaat}}</a>
+            <a class="btn text-left btn-primary btn-lg" ng-click="update(voertuig.voertuigid)">{{voertuig.nummerplaat}}</a>
+            <a class="btn text-left btn-danger btn-lg" ng-click="delete(voertuig.voertuigid)">VERWIJDER</a>
             </div>
         </li>
     </ul>

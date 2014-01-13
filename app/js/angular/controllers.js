@@ -1,7 +1,7 @@
 'use strict';
 /* Controllers */
 
-angular.module('myApp.controllers', []).
+angular.module('myApp.controllers', ['ngResource']).
         // In de factories haalt men de data op van de webservice
         // Deze data kan men later in de controllers opvragen
 
@@ -79,46 +79,56 @@ angular.module('myApp.controllers', []).
 
             return Bericht;
         }).
+        /*factory('TestFac', ['$resource', function($resource) {
+         return {
+         Voertuig: $resource('http://localhost:8084/publictms/voertuig/get?CALLBACK=JSONP_CALLBACK', {}, {
+         jsonp_query: {
+         method: 'JSONP'
+         }
+         })
+         };
+         }
+         ]).*/
         // Factory voor de tabel voertuigen
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('Voertuig', function($http) {
+        factory('VoertuigFactory', function($resource) {
 
-            // Klasse voertuig om data te manipuleren
-            // Parameter: data
-            var Voertuig = function(data) {
-                angular.extend(this, data);
-            };
+            return $resource('http://localhost:8084/publictms/voertuig/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
 
-            // Methode om alle voertuigen op te vragen
-            Voertuig.getAll = function() {
-                return $http.jsonp('http://localhost:8084/publictms/voertuig/get?CALLBACK=JSONP_CALLBACK').then(function(response) {
-                    var voertuigen = [];
-                    for (var i = 0; i < response.data.length; i++)
-                    {
-                        voertuigen.push(new Voertuig(response.data[i]));
-                    }
-                    return voertuigen;
-                });
-            };
+            /*return {
+             Voertuig: $resource('http://localhost:8084/publictms/voertuig/get/:id?CALLBACK=JSONP_CALLBACK', {id: '@id'}, {})
+             };*/
 
-            // Methode om een voertuig op te vragen
-            // Parameter: id
-            Voertuig.get = function() {
-                return $http.jsonp('http://localhost:8084/publictms/voertuig/get/1').then(function(response) {
-                    return new Voertuig(response.data);
-                 });
-            };
+            /*return {
+             Voertuig: $resource('http://localhost:8084/publictms/voertuig/add', {}, {
+             add: {method:'POST'},
+             update: {method:'PUT'},
+             remove: {method:'DELETE'}
+             })
+             };*/
+        }).
+        factory('VoertuigenFactory', function($resource) {
 
-            // Methode om een nieuw voertuig toe te voegen
-            Voertuig.prototype.create = function() {
-                var voertuig = this;
-                return $http.post('localhost:8084/publictms/voertuig/add', voertuig).then(function(response) {
-                    voertuig.id = response.data.id;
-                    return voertuig;
-                });
-            };
+            return $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST'},
+                update: {method: 'PUT'}
+            });
 
-            return Voertuig;
+            /*return {
+             Voertuig: $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {})
+             };*/
+
+            /*return {
+             Voertuig: $resource('http://localhost:8084/publictms/voertuig/add', {}, {
+             add: {method:'POST'},
+             update: {method:'PUT'},
+             remove: {method:'DELETE'}
+             })
+             };*/
         }).
         // Controller om de klanten en de functies te koppelen aan de view
         controller('klantCtrl', function($scope, Klant) {
@@ -133,57 +143,52 @@ angular.module('myApp.controllers', []).
             };
         }).
         // Controller om de voertuigen en de functies te koppelen aan de view
-        controller('voertuigCtrl', function($scope, $http, Voertuig) {
-             $scope.test = Voertuig.get();
-             $scope.voertuigen = Voertuig.getAll();
+        controller('voertuigCtrl', function($scope, $location, VoertuigFactory, VoertuigenFactory) {
+            $scope.voertuigen = VoertuigenFactory.all();
+            
+            $scope.add = function() {
+                $location.path('admin/voertuigen/nieuw');
+            };
 
-            /*$scope.method = 'GET';
-            $scope.url = 'http://localhost:8084/publictms/voertuig/get/1';
+            $scope.update = function(voertuigId) {
+                $location.path('admin/voertuig/' + voertuigId);
+            };
 
-            $scope.fetch = function() {
-                $scope.code = null;
-                $scope.response = null;
+            $scope.delete = function(voertuigId) {
+                VoertuigFactory.delete({id: voertuigId});
+                $scope.voertuigen = VoertuigenFactory.all();
+            };
 
-                $http({method: $scope.method, url: $scope.url, cache: $templateCache}).
-                        success(function(data, status) {
-                            $scope.status = status;
-                            $scope.test = data;
-                        }).
-                        error(function(data, status) {
-                            $scope.test = data || "Request failed";
-                            $scope.status = status;
-                        });
-        };*/
-
-            /*$scope.add = function() {
-             var voertuig = new Voertuig();
-             voertuig.name = 'Test voertuig';
-             voertuig.create();
-             };*/
         }).
-        /*controller('detailCtrl', function($scope, $routeParams, Data) {
-         var klanten = Data;
-         $scope.state = true;
-         $scope.klant = klanten[$routeParams.id - 1];
-         $scope.buttonedit = false;
-         $scope.buttonsave = true;
-         $scope.edit = function() {
-         $scope.state = false;
-         $scope.buttonedit = true;
-         $scope.buttonsave = false;
-         };
-         $scope.save = function() {
-         $scope.state = true;
-         $scope.buttonedit = false;
-         $scope.buttonsave = true;
-         };
-         $scope.cancel = function() {
-         $scope.state = true;
-         $scope.buttonedit = false;
-         $scope.buttonsave = true;
-         };
-         }).*/
+        controller('detailCtrl', function($scope, $routeParams, VoertuigFactory) {
+            $scope.state = true;
+            $scope.voertuig = VoertuigFactory.show({id: $routeParams.id});
+            $scope.buttonedit = false;
+            $scope.buttonsave = true;
+            $scope.edit = function() {
+                $scope.state = false;
+                $scope.buttonedit = true;
+                $scope.buttonsave = false;
+            };
+            $scope.save = function() {
+                VoertuigFactory.save($scope.voertuig);
+                $scope.state = true;
+                $scope.buttonedit = false;
+                $scope.buttonsave = true;
+            };
+            $scope.cancel = function() {
+                $scope.state = true;
+                $scope.buttonedit = false;
+                $scope.buttonsave = true;
+            };
+        }).
+        controller('createCtrl', function($scope, $location, VoertuigenFactory) {
+            $scope.create = function() {
+                VoertuigenFactory.create($scope.voertuig);
+                $location.path('/admin/voertuigen');
+            }
 
+        }).
         // Controller om de berichten en de functies te koppelen aan de view
         controller('berichtCtrl', function($scope, Bericht) {
             $scope.berichten = Bericht.getAll();

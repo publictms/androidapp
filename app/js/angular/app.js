@@ -24,8 +24,8 @@ config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/admin/klant/:id', {templateUrl: 'partials/administrator/klanten/detail.html', controller: 'klantCtrl'});
   $routeProvider.when('/admin/klanten/nieuw', {templateUrl: 'partials/administrator/klanten/nieuw.html', controller: 'klantCtrl'});
   $routeProvider.when('/admin/voertuigen', {templateUrl: 'partials/administrator/voertuigen/voertuigen.html', controller: 'voertuigCtrl'});
-  $routeProvider.when('/admin/voertuig/:id', {templateUrl: 'partials/administrator/voertuigen/detail.html', controller: 'voertuigCtrl'});
-  $routeProvider.when('/admin/voertuigen/nieuw', {templateUrl: 'partials/administrator/voertuigen/nieuw.html', controller: 'voertuigCtrl'});
+  $routeProvider.when('/admin/voertuig/:id', {templateUrl: 'partials/administrator/voertuigen/detail.html', controller: 'detailCtrl'});
+  $routeProvider.when('/admin/voertuigen/nieuw', {templateUrl: 'partials/administrator/voertuigen/nieuw.html', controller: 'createCtrl'});
   $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/masterdata.html'});
   $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/datum.html'});
   $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'planningCtrl'});

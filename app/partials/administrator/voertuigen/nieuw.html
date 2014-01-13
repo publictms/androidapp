@@ -4,13 +4,22 @@
     </div>
     <div class="form-group bottom">
         <a class="btn btn-default btn-lg" href="index.html#/admin/voertuigen"><span class="glyphicon glyphicon-arrow-left"></span></a>
-        <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/voertuigen" ng-click="add()"><span class="glyphicon glyphicon-floppy-disk"></span>   OPSLAAN</a>
+        <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/voertuigen" ng-click="create()"><span class="glyphicon glyphicon-floppy-disk"></span>   OPSLAAN</a>
     </div>
 </div>
 <div class="col-md-6">
     <table class="table table-striped">
-        <tr><td>nummerplaat:</td><td><input class="form-control" type="text" ng-model="nummerplaat"/></td></tr>
-        <tr><td>actief:</td><td><input class="form-control" type="checkbox" ng-model="actief"/></td></tr>
-        <tr><td>omschrijving:</td><td><input class="form-control" type="text" ng-model="omschrijving"/></td></tr>
+        <tr><td><label>nummerplaat</label></td><td><input class="form-control" type="text" ng-model="voertuig.nummerplaat"/></td></tr>
+        <tr><td><label>actief</label></td><td><input class="form-control" type="text" ng-model="voertuig.actief"/></td></tr>
+        <tr><td><label>omschrijving</label></td><td><input class="form-control" type="text" ng-model="voertuig.omschrijving"/></td></tr>
+        <tr><td><label>type</label></td><td><input class="form-control" type="text" ng-model="voertuig.voertuigtype"/></td></tr>
+        <tr><td><label>bouwjaar</label></td><td><input class="form-control" type="text" ng-model="voertuig.bouwjaar"/></td></tr>
+        <tr><td><label>in gebruik</label></td><td><input class="form-control" type="text" ng-model="voertuig.datumin"/></td></tr>
+        <tr><td><label>uit gebruik</label></td><td><input class="form-control" type="text" ng-model="voertuig.datumuit"/></td></tr>
+        <tr><td><label>chassisnr</label></td><td><input class="form-control" type="text" ng-model="voertuig.chassisnummer"/></td></tr>
+        <tr><td><label>motornr</label></td><td><input class="form-control" type="text" ng-model="voertuig.motornummer"/></td></tr>
+        <tr><td><label>vergunning</label></td><td><input class="form-control" type="text" ng-model="voertuig.vergunning"/></td></tr>
+        <tr><td><label>geldig tot</label></td><td><input class="form-control" type="text" ng-model="voertuig.vergunninggeldigtot"/></td></tr>
+        <tr><td><label>vrij veld</label></td><td><input class="form-control" type="text" ng-model="voertuig.vrijveld"/></td></tr>
     </table>  
 </div>
