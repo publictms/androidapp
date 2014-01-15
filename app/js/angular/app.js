@@ -26,11 +26,11 @@ config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/admin/voertuigen', {templateUrl: 'partials/administrator/voertuigen/voertuigen.html', controller: 'voertuigCtrl'});
   $routeProvider.when('/admin/voertuig/:id', {templateUrl: 'partials/administrator/voertuigen/detail.html', controller: 'detailCtrl'});
   $routeProvider.when('/admin/voertuigen/nieuw', {templateUrl: 'partials/administrator/voertuigen/nieuw.html', controller: 'createCtrl'});
-  $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/masterdata.html'});
+  $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/adminopdracht.html'});
   $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/datum.html'});
   $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'planningCtrl'});
   $routeProvider.when('/admin/berichten', {templateUrl: 'partials/administrator/berichten/berichten.html', controller: 'berichtCtrl'});
-  $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'berichtCtrl'});
+  $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'nieuwBerichtCtrl'});
   
   //USER
   // alle navigatie voor de pagina's van het gebruikers gedeelte

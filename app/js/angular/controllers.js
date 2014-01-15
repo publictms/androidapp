@@ -7,79 +7,23 @@ angular.module('myApp.controllers', ['ngResource']).
 
         // Factory voor de tabel klanten
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('Klant', function($http) {
+        factory('GebruikerFactory', function($resource) {
 
-            // Klasse klant om data te manipuleren
-            // Parameter: data
-            var Klant = function(data) {
-                angular.extend(this, data);
-            };
+            return $resource('http://localhost:8084/publictms/gebruiker/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
 
-            // Methode om een klant op te vragen
-            // Parameter: id
-            Klant.get = function(id) {
-                return $http.get('/Klant/' + id).then(function(response) {
-                    return new Klant(response.data);
-                });
-            };
-
-            // Methode om alle klanten op te vragen
-            Klant.getAll = function() {
-                return $http.get('/Klant').then(function(response) {
-                    var klanten = [];
-                    for (var i = 0; i < response.data.length; i++)
-                    {
-                        klanten.push(new Klant(response.data[i]));
-                    }
-                    return klanten;
-                });
-            };
-
-            // Methode om een nieuwe klant toe te voegen
-            Klant.prototype.create = function() {
-                var klant = this;
-                return $http.post('/Klant/', klant).then(function(response) {
-                    klant.id = response.data.id;
-                    return klant;
-                });
-            };
-
-            return Klant;
         }).
-        // Factory voor de tabel berichten
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('Bericht', function($http) {
+        factory('GebruikersFactory', function($resource) {
 
-            // Klasse bericht om data te manipuleren
-            // Parameter: data
-            var Bericht = function(data) {
-                angular.extend(this, data);
-            };
+            return $resource('http://localhost:8084/publictms/gebruiker/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
 
-            // Methode om alle berichten op te vragen
-            Bericht.getAll = function() {
-                return $http.get('http://localhost:8084/publictms/bericht').then(function(response) {
-                    var berichten = [];
-                    for (var i = 0; i < response.data.length; i++)
-                    {
-                        berichten.push(new Bericht(response.data[i]));
-                    }
-                    return berichten;
-                });
-            };
-
-            // Methode om een nieuw bericht te verzenden
-            Bericht.prototype.create = function() {
-                var bericht = this;
-                return $http.post('localhost:8084/publictms/bericht/send/', bericht).then(function(response) {
-                    bericht.id = response.data.id;
-                    return bericht;
-                });
-            };
-
-            return Bericht;
         }).
-       
         // Factory voor de tabel voertuigen
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
         factory('VoertuigFactory', function($resource) {
@@ -99,27 +43,32 @@ angular.module('myApp.controllers', ['ngResource']).
             });
 
         }).
-        // Controller om de klanten en de functies te koppelen aan de view
-        controller('klantCtrl', function($scope, Klant) {
-            $scope.klanten = Klant.getAll;
-            $scope.orderProp = 'name';
+        // Factory voor de tabel voertuigen
+        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
+        factory('BerichtFactory', function($resource) {
 
-            // Een klant toevoegen
-            $scope.add = function() {
-                var klant = new Klant();
-                klant.name = 'Test klant';
-                klant.create();
-            };
+            return $resource('http://localhost:8084/publictms/bericht/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        factory('BerichtenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/bericht/?CALLBACK=JSONP_CALLBACK', {}, {
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}}
+            });
+
         }).
         // Controller om de voertuigen en de functies te koppelen aan de view
         controller('voertuigCtrl', function($scope, $location, VoertuigFactory, VoertuigenFactory) {
-            
+
             $scope.getList = function() {
-                VoertuigenFactory.all(function(data){
+                VoertuigenFactory.all(function(data) {
                     $scope.voertuigen = data;
                 });
-            }
-            
+            };
+
             $scope.add = function() {
                 $location.path('admin/voertuigen/nieuw');
             };
@@ -133,7 +82,7 @@ angular.module('myApp.controllers', ['ngResource']).
                     $scope.getList();
                 });
             };
-            
+
             $scope.getList();
 
         }).
@@ -159,36 +108,61 @@ angular.module('myApp.controllers', ['ngResource']).
                 $scope.buttonsave = true;
             };
         }).
-        controller('createCtrl', function($scope, $location, VoertuigenFactory) {
-            //var voertuig = {"nummerplaat":"abc-123","actief":true,"omschrijving":"mercedes","voertuigtype":"lichtevracht","bouwjaar":"2013/05","datumin":"2013-06-08","datumuit":"2019-08-02","chassisnummer":"WDB1vghvgv31j082409","motornummer":"6805","vergunning":true,"vergunninggeldigtot":"2018-08-25","vrijveld":"dit is een test","opleggerid":1};
-            $scope.voertuig = {"nummerplaat":"","actief":null,"omschrijving":"","voertuigtype":"","bouwjaar":"","datumin":"","datumuit":"","chassisnummer":"","motornummer":"","vergunning":null,"vergunninggeldigtot":"","vrijveld":"","opleggerid":null}
-            $scope.create = function() {
-                VoertuigenFactory.create($scope.voertuig);
-                $location.path('/admin/voertuigen');
+        controller('createCtrl', function($scope, $location, $timeout, VoertuigenFactory) {
+            $scope.create = function(voertuig) {
+                VoertuigenFactory.create(voertuig, function() {
+                    $timeout(function() {
+                        $location.path('/admin/voertuigen');
+                    });
+                });
+
             };
         }).
-        // Controller om de berichten en de functies te koppelen aan de view
-        controller('berichtCtrl', function($scope, Bericht) {
-            $scope.berichten = Bericht.getAll();
-            $scope.bericht = Bericht.getAll();
+        // Controller om de voertuigen en de functies te koppelen aan de view
+        controller('berichtCtrl', function($scope, $location, BerichtFactory, GebruikersFactory) {
+            
+            $scope.getUser = function(){
+                GebruikersFactory.all(function(data){
+                    $scope.users = data;
+                    $scope.user = data[1];
+                });
+            };
+            
+            $scope.getList = function(id) {
+                BerichtFactory.query({id: id}, (function(data) {
+                    $scope.berichten = data;
+                    $scope.bericht = data[0];
+                }));
+            };
 
-            // Een bericht selecteren
-            $scope.select = function(bericht) {
+            $scope.new = function() {
+                $location.path('admin/berichten/nieuw');
+            };
+
+            $scope.delete = function(berichtId) {
+                BerichtFactory.delete({id: berichtId}, function() {
+                    $scope.getList(3);
+                });
+            };
+            
+            $scope.select = function(bericht){
                 $scope.bericht = bericht;
             };
+            
+            $scope.getList(3);
+            $scope.getUser();
 
-            // Een bericht beantwoorden
-            $scope.answer = function() {
+        }).
+        controller('nieuwBerichtCtrl', function($scope, $location, $timeout, BerichtenFactory) {
+            $scope.datum = new Date();
+            $scope.send = function(bericht) {
+                BerichtenFactory.create(bericht, function() {
+                    $timeout(function() {
+                        $location.path('/admin/berichten');
+                    });
+                });
 
             };
-
-            // Een bericht verzenden
-            $scope.send = function() {
-                var bericht = new Bericht();
-                bericht.BerichtTitel = 'Test nieuw bericht';
-                bericht.Bericht = 'We zulle da hier eerst maar is teste';
-                bericht.create();
-            }
         }).
         // Controller om de navigatie en de functies te koppelen aan de view
         controller('MapCtrl',

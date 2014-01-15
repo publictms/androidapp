@@ -5,11 +5,13 @@
             <!-- ng-repeat: Er wordt geïtereerd door de berichten -->
             <!-- ng-click: click event gekoppeld aan de controller -->
             <a ng-repeat="bericht in berichten" href="" class="list-group-item" ng-click="select(bericht)">
-                <h4 class="list-group-item-heading">{{bericht.GebruikerId}}</h4>
-                <p class="list-group-item-text">{{bericht.BerichtTitel}}</p>
+                <span class="glyphicon glyphicon-eye-open pull-right" ng-if="bericht.gelezen"></span>
+                <span class="glyphicon glyphicon-eye-close pull-right" ng-if="!bericht.gelezen"></span>
+                <h4 class="list-group-item-heading">{{bericht.gebruikerid}}</h4>
+                <p class="list-group-item-text">{{bericht.berichttitel}}</p>
             </a>
         </div>
-        <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/berichten/nieuw"><span class="glyphicon glyphicon-plus"></span>&nbsp;NIEUW</a>
+        <a class="btn btn-success btn-lg pull-right" ng-click="new()"><span class="glyphicon glyphicon-plus"></span>&nbsp;NIEUW</a>
     </div>
     <div class="form-group bottom">
         <a class="btn btn-default btn-lg" href="index.html#/admin"><span class="glyphicon glyphicon-arrow-left"></span></a>
@@ -18,15 +20,15 @@
 <div class="col-md-8">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>{{bericht.BerichtTitel}}<small class="pull-right">van: {{bericht.OntvangerId}}</small></h4>
+            <h4>{{bericht.berichttitel}}<small class="pull-right">van: {{bericht.gebruikerid}}</small></h4>
         </div>
         <div class="panel-body">
-            <textarea class="form-control" rows="20" ng-model="bericht.Bericht" disabled>
+            <textarea class="form-control" rows="20" ng-model="bericht.bericht" disabled>
             </textarea>
         </div>
         <div class="panel-footer text-right">
             <div class="btn-group">
-                <button class="btn btn-danger btn-lg" ng-click="delete()"><span class="glyphicon glyphicon-remove"></span>&nbsp;VERWIJDEREN</button>
+                <button class="btn btn-danger btn-lg" ng-click="delete(bericht.berichtid)"><span class="glyphicon glyphicon-remove"></span>&nbsp;VERWIJDEREN</button>
                 <button class="btn btn-primary btn-lg" ng-click="answer()"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;BEANTWOORDEN</button>
             </div>
         </div>

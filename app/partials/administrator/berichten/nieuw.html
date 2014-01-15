@@ -10,19 +10,23 @@
     <div class="panel panel-primary">
         <div class="panel-body">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Naar wie wil je een bericht sturen" ng-model="OntvangerId"/>
+                <input type="text" class="form-control" ng-disabled="true" value="1" />
+                <input type="text" class="form-control" ng-disabled="true" value="{{datum}}"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Onderwerp van het bericht" ng-model="berichtTitel"/>
+                <input type="text" class="form-control" placeholder="Naar wie wil je een bericht sturen" ng-model="bericht.ontvangerid"/>
             </div>
             <div class="form-group">
-                <textarea class="form-control" rows="20" placeholder="Typ hier uw bericht" ng-model="Bericht">
+                <input type="text" class="form-control" placeholder="Onderwerp van het bericht" ng-model="bericht.berichttitel"/>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="20" placeholder="Typ hier uw bericht" ng-model="bericht.bericht">
                 </textarea>
             </div>
         </div>
         <div class="panel-footer text-right">
             <div class="btn-group">
-                <button class="btn btn-primary btn-lg btn-block" ng-click="send()"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;VERSTUREN</button>
+                <button class="btn btn-primary btn-lg btn-block" ng-click="send(bericht)"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;VERSTUREN</button>
             </div>
         </div>
     </div>
