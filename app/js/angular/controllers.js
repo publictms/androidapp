@@ -79,16 +79,7 @@ angular.module('myApp.controllers', ['ngResource']).
 
             return Bericht;
         }).
-        /*factory('TestFac', ['$resource', function($resource) {
-         return {
-         Voertuig: $resource('http://localhost:8084/publictms/voertuig/get?CALLBACK=JSONP_CALLBACK', {}, {
-         jsonp_query: {
-         method: 'JSONP'
-         }
-         })
-         };
-         }
-         ]).*/
+       
         // Factory voor de tabel voertuigen
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
         factory('VoertuigFactory', function($resource) {
@@ -102,13 +93,6 @@ angular.module('myApp.controllers', ['ngResource']).
              Voertuig: $resource('http://localhost:8084/publictms/voertuig/get/:id?CALLBACK=JSONP_CALLBACK', {id: '@id'}, {})
              };*/
 
-            /*return {
-             Voertuig: $resource('http://localhost:8084/publictms/voertuig/add', {}, {
-             add: {method:'POST'},
-             update: {method:'PUT'},
-             remove: {method:'DELETE'}
-             })
-             };*/
         }).
         factory('VoertuigenFactory', function($resource) {
 
@@ -118,17 +102,13 @@ angular.module('myApp.controllers', ['ngResource']).
                 update: {method: 'PUT'}
             });
 
-            /*return {
-             Voertuig: $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {})
-             };*/
+        }).
+                factory('addFactory', function($resource) {
 
-            /*return {
-             Voertuig: $resource('http://localhost:8084/publictms/voertuig/add', {}, {
-             add: {method:'POST'},
-             update: {method:'PUT'},
-             remove: {method:'DELETE'}
-             })
-             };*/
+            return $resource('http://localhost:8084/publictms/voertuig/', {}, {
+                create: {method: 'POST'}
+            });
+
         }).
         // Controller om de klanten en de functies te koppelen aan de view
         controller('klantCtrl', function($scope, Klant) {
@@ -183,11 +163,11 @@ angular.module('myApp.controllers', ['ngResource']).
             };
         }).
         controller('createCtrl', function($scope, $location, VoertuigenFactory) {
+            var voertuig = {"nummerplaat":"1-ttt-666","actief":true,"omschrijving":"mercedes","voertuigtype":"lichtevracht","bouwjaar":"2013/05","datumin":"2013-06-08","datumuit":"2019-08-02","chassisnummer":"WDB1vghvgv31j082409","motornummer":"6805","vergunning":true,"vergunninggeldigtot":"2018-08-25","vrijveld":"dit is een test","opleggerid":1};
             $scope.create = function() {
-                VoertuigenFactory.create($scope.voertuig);
+                VoertuigenFactory.create(voertuig);
                 $location.path('/admin/voertuigen');
-            }
-
+            };
         }).
         // Controller om de berichten en de functies te koppelen aan de view
         controller('berichtCtrl', function($scope, Bericht) {
