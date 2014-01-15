@@ -1,0 +1,62 @@
+<div class="col-md-6">
+    <div class="form-group">
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="{{werknemer.naam}}"/> 
+    </div>
+    <div class="form-group bottom">
+        <a class="btn btn-default btn-lg" href="index.html#/admin/werknemers"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        <div class="btn-group pull-right">
+        <button ng-click="edit()" class="btn btn-primary btn-lg" ng-hide="buttonedit"><span class="glyphicon glyphicon-edit"></span>&nbsp;WIJZIGEN</button>
+        </div>
+        <div class="btn-group pull-right">
+        <button ng-click="save()" class="btn btn-success btn-lg" ng-hide="buttonsave" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;OPSLAAN</button>
+        <button ng-click="cancel()" class="btn btn-danger btn-lg" ng-hide="buttonsave"><span class="glyphicon glyphicon-stop"></span>&nbsp;ANNULEREN</button>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <table class="table table-striped">
+        <tr><td><label>actief</label></td><td><input class="form-control" type="text" value="{{werknemer.actief}}" ng-model="werknemer.actief" ng-disabled="state"/></td></tr>
+        
+        <tr><td><label>naam</label></td><td><input class="form-control" type="text" value="{{werknemer.naam}}" ng-model="werknemer.naam" ng-disabled="state"/></td></tr>
+        <tr><td><label>voornaam</label></td><td><input class="form-control" type="text" value="{{werknemer.voornaam}}" ng-model="werknemer.voornaam" ng-disabled="state"/></td></tr>
+        <tr><td><label>geslacht</label></td><td><input class="form-control" type="text" value="{{werknemer.geslacht}}" ng-model="werknemer.geslacht" ng-disabled="state"/></td></tr>
+        <tr><td><label>statuut</label></td><td><input class="form-control" type="text" value="{{werknemer.statuut}}" ng-model="werknemer.statuut" ng-disabled="state"/></td></tr>
+        <tr><td><label>datum inschrijving</label></td><td><input class="form-control" type="text" value="{{werknemer.datuminschrijving}}" ng-model="werknemer.datuminschrijving" ng-disabled="state"/></td></tr>
+        <tr><td><label>datum uitschrijving</label></td><td><input class="form-control" type="text" value="{{werknemer.datumuitschrijving}}" ng-model="werknemer.datumuitschrijving" ng-disabled="state"/></td></tr>
+        <tr><td><label>functie</label></td><td><input class="form-control" type="text" value="{{werknemer.functie}}" ng-model="werknemer.functie" ng-disabled="state"/></td></tr>
+        
+        <tr><td><label>taal</label></td><td><input class="form-control" type="text" value="{{taal.taalnaam}}" ng-model="taal.taalnaam" ng-disabled="state"/></td></tr>
+        
+        <tr><td><label>straat</label></td><td><input class="form-control" type="text" value="{{adres.straat}}" ng-model="adres.straat" ng-disabled="state"/></td></tr>
+        <tr><td><label>nummer</label></td><td><input class="form-control" type="text" value="{{adres.nummer}}" ng-model="adres.nummer" ng-disabled="state"/></td></tr>
+        <tr><td><label>bus</label></td><td><input class="form-control" type="text" value="{{adres.bus}}" ng-model="adres.bus" ng-disabled="state"/></td></tr>
+        <tr><td><label>land</label></td><td><input class="form-control" type="text" value="{{adres.land}}" ng-model="adres.land" ng-disabled="state"/></td></tr>
+        <tr><td><label>postcode</label></td><td><input class="form-control" type="text" value="{{adres.postcode}}" ng-model="adres.postcode" ng-disabled="state"/></td></tr>
+        
+        <tr><td><label>emailadres</label></td><td><input class="form-control" type="text" value="{{contact.email}}" ng-model="contact.email" ng-disabled="state"/></td></tr>
+        <tr><td><label>telefoonnummer</label></td><td><input class="form-control" type="text" value="{{contact.telefoon}}" ng-model="contact.telefoon" ng-disabled="state"/></td></tr>
+        <tr><td><label>gsmnummer</label></td><td><input class="form-control" type="text" value="{{contact.gsm}}" ng-model="contact.gsm" ng-disabled="state"/></td></tr>
+        <tr><td><label>faxnummer</label></td><td><input class="form-control" type="text" value="{{contact.fax}}" ng-model="contact.fax" ng-disabled="state"/></td></tr>
+        
+        
+        <tr><td><label>rijbewijsnummer</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.rijbewijsnr}}" ng-model="rijbewijsgegevens.rijbewijsnr" ng-disabled="state"/></td></tr>
+        <tr><td><label>rijbewijscategorie</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.rijbewijscat}}" ng-model="rijbewijsgegevens.rijbewijscat" ng-disabled="state"/></td></tr>
+        <tr><td><label>geldigtot</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.geldigtot}}" ng-model="rijbewijsgegevens.geldigtot" ng-disabled="state"/></td></tr>
+        <tr><td><label>ADR certificaat</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.adrcertificaat}}" ng-model="rijbewijsgegevens.adrcertificaat" ng-disabled="state"/></td></tr>
+        <tr><td><label>Medisch attest</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.medischattest}}" ng-model="rijbewijsgegevens.medischattest" ng-disabled="state"/></td></tr>
+        <tr><td><label>tankkaartnummer</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.tankkaartnr}}" ng-model="rijbewijsgegevens.tankkaartnr" ng-disabled="state"/></td></tr>
+        <tr><td><label>tachograafnummer</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.tachograafnr}}" ng-model="rijbewijsgegevens.tachograafnr" ng-disabled="state"/></td></tr>
+        <tr><td><label>tachograaf totaal</label></td><td><input class="form-control" type="text" value="{{rijbewijsgegevens.tachograaftot}}" ng-model="rijbewijsgegevens.tachograaftot" ng-disabled="state"/></td></tr>
+        
+        <tr><td><label>rijksregisternummer</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.rijksregisternr}}" ng-model="persoonsinfo.rijksregisternr" ng-disabled="state"/></td></tr>
+        <tr><td><label>siskaart</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.siskaart}}" ng-model="persoonsinfo.siskaart" ng-disabled="state"/></td></tr>
+        <tr><td><label>identiteitsnummer</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.identiteitsnr}}" ng-model="persoonsinfo.identiteitsnr" ng-disabled="state"/></td></tr>
+        <tr><td><label>pernsioensnummer</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.pensioennr}}" ng-model="persoonsinfo.pensioennr" ng-disabled="state"/></td></tr>
+        <tr><td><label>geboorteplaats</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.geboorteplaats}}" ng-model="persoonsinfo.geboorteplaats" ng-disabled="state"/></td></tr>
+        <tr><td><label>geboortedatum</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.geboortedatum}}" ng-model="persoonsinfo.geboortedatum" ng-disabled="state"/></td></tr>
+        <tr><td><label>IBAN</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.iban}}" ng-model="persoonsinfo.iban" ng-disabled="state"/></td></tr>
+        <tr><td><label>BIC</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.bic}}" ng-model="persoonsinfo.bic" ng-disabled="state"/></td></tr>
+        <tr><td><label>burgerlijke stand</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.burgerstand}}" ng-model="persoonsinfo.burgerstand" ng-disabled="state"/></td></tr>
+        <tr><td><label>aantal kinderen</label></td><td><input class="form-control" type="text" value="{{persoonsinfo.aantalkinderen}}" ng-model="persoonsinfo.aantalkinderen" ng-disabled="state"/></td></tr>
+    </table>  
+</div>

@@ -1,6 +1,6 @@
 <div class="col-md-6">
     <div class="form-group">
-        <input class="btn btn-primary btn-lg btn-block" type="submit" value="KLANTEN"/> 
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="TRANSPORTADRESSEN"/> 
     </div>
     <div class="form-group left-inner-addon">
         <span class="glyphicon glyphicon-search"></span>
@@ -14,10 +14,10 @@
 <div class="col-md-6">
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de klanten -->
-        <li ng-repeat="klant in klanten | filter:query">
+        <li ng-repeat="transport in transporten | filter:query">
             <div class="btn-group btn-group-justified form-group">
-            <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/klant/{{klant.klantid}}/{{klant.adresid}}/{{klant.contactid}}/{{klant.taal}}">{{klant.voornaam}} {{klant.naam}}</a>
-            <a class="btn text-left btn-danger btn-lg" ng-click="delete(klant.klantid)">VERWIJDER</a>
+            <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/transport/{{transport.transportid}}/{{transport.adresid}}/{{transport.contactid}}/{{transport.taal}}">{{transport.naam}}</a>
+            <a class="btn text-left btn-danger btn-lg" ng-click="delete(transport.transportid)">VERWIJDER</a>
             </div>
         </li>
     </ul>

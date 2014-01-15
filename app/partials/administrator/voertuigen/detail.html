@@ -16,16 +16,16 @@
 <div class="col-md-6">
     <table class="table table-striped">
         <tr><td><label>nummerplaat</label></td><td><input class="form-control" type="text" value="{{voertuig.nummerplaat}}" ng-model="voertuig.nummerplaat" ng-disabled="state"/></td></tr>
-        <tr><td><label>actief</label></td><td><input class="form-control" type="text" value="{{voertuig.actief}}" ng-model="voertuig.actief" ng-disabled="state"/></td></tr>
+        <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" value="{{voertuig.actief}}" ng-model="voertuig.actief" ng-disabled="state"/></td></tr>
         <tr><td><label>omschrijving</label></td><td><input class="form-control" type="text" value="{{voertuig.omschrijving}}" ng-model="voertuig.omschrijving" ng-disabled="state"/></td></tr>
         <tr><td><label>type</label></td><td><input class="form-control" type="text" value="{{voertuig.voertuigtype}}" ng-model="voertuig.voertuigtype" ng-disabled="state"/></td></tr>
         <tr><td><label>bouwjaar</label></td><td><input class="form-control" type="text" value="{{voertuig.bouwjaar}}" ng-model="voertuig.bouwjaar" ng-disabled="state"/></td></tr>
-        <tr><td><label>in gebruik</label></td><td><input class="form-control" type="text" value="{{voertuig.datumin}}" ng-model="voertuig.datumin" ng-disabled="state"/></td></tr>
-        <tr><td><label>uit gebruik</label></td><td><input class="form-control" type="text" value="{{voertuig.datumuit}}" ng-model="voertuig.datumuit" ng-disabled="state"/></td></tr>
+        <tr><td><label>in gebruik</label></td><td><input class="form-control" type="date" value="{{voertuig.datumin}}" ng-model="voertuig.datumin" ng-disabled="state"/></td></tr>
+        <tr><td><label>uit gebruik</label></td><td><input class="form-control" type="date" value="{{voertuig.datumuit}}" ng-model="voertuig.datumuit" ng-disabled="state"/></td></tr>
         <tr><td><label>chassisnr</label></td><td><input class="form-control" type="text" value="{{voertuig.chassisnummer}}" ng-model="voertuig.chassisnummer" ng-disabled="state"/></td></tr>
         <tr><td><label>motornr</label></td><td><input class="form-control" type="text" value="{{voertuig.motornummer}}" ng-model="voertuig.motornummer" ng-disabled="state"/></td></tr>
-        <tr><td><label>vergunning</label></td><td><input class="form-control" type="text" value="{{voertuig.vergunning}}" ng-model="voertuig.vergunning" ng-disabled="state"/></td></tr>
-        <tr><td><label>geldig tot</label></td><td><input class="form-control" type="text" value="{{voertuig.vergunninggeldigtot}}" ng-model="voertuig.vergunninggeldigtot" ng-disabled="state"/></td></tr>
+        <tr><td><label>vergunning</label></td><td><input class="form-control" type="checkbox" value="{{voertuig.vergunning}}" ng-model="voertuig.vergunning" ng-disabled="state"/></td></tr>
+        <tr><td><label>geldig tot</label></td><td><input class="form-control" type="date" value="{{voertuig.vergunninggeldigtot}}" ng-model="voertuig.vergunninggeldigtot" ng-disabled="state"/></td></tr>
         <tr><td><label>vrij veld</label></td><td><input class="form-control" type="text" value="{{voertuig.vrijveld}}" ng-model="voertuig.vrijveld" ng-disabled="state"/></td></tr>
     </table>  
 </div>

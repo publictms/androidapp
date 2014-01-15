@@ -1,0 +1,57 @@
+<div class="col-md-6">
+    <div class="form-group">
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="NIEUWE WERKNEMER"/> 
+    </div>
+    <div class="form-group bottom">
+        <a class="btn btn-default btn-lg" href="index.html#/admin/werknemers"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        <a class="btn btn-success btn-lg pull-right" ng-click="create()"><span class="glyphicon glyphicon-floppy-disk"></span>   OPSLAAN</a>
+    </div>
+</div>
+<div class="col-md-6">
+    <table class="table table-striped">
+        <tr><td><label>actief</label></td><td><input class="form-control" type="text" ng-model="werknemer.actief"/></td></tr>
+        
+        <tr><td><label>naam</label></td><td><input class="form-control" type="text" ng-model="werknemer.naam"/></td></tr>
+        <tr><td><label>voornaam</label></td><td><input class="form-control" type="text" ng-model="werknemer.voornaam"/></td></tr>
+        <tr><td><label>geslacht</label></td><td><input class="form-control" type="text" ng-model="werknemer.geslacht"/></td></tr>
+        <tr><td><label>statuut</label></td><td><input class="form-control" type="text" ng-model="werknemer.statuut"/></td></tr>
+        <tr><td><label>datum inschrijving</label></td><td><input class="form-control" type="text" ng-model="werknemer.datuminschrijving"/></td></tr>
+        <tr><td><label>datum uitschrijving</label></td><td><input class="form-control" type="text" ng-model="werknemer.datumuitschrijving"/></td></tr>
+        <tr><td><label>functie</label></td><td><input class="form-control" type="text" ng-model="werknemer.functie"/></td></tr>
+        
+        <tr><td><label>taal</label></td><td><input class="form-control" type="text" ng-model="taal.taalnaam"/></td></tr>
+        
+        <tr><td><label>straat</label></td><td><input class="form-control" type="text" ng-model="adres.straat"/></td></tr>
+        <tr><td><label>nummer</label></td><td><input class="form-control" type="text" ng-model="adres.nummer"/></td></tr>
+        <tr><td><label>bus</label></td><td><input class="form-control" type="text" ng-model="adres.bus"/></td></tr>
+        <tr><td><label>land</label></td><td><input class="form-control" type="text" ng-model="adres.land"/></td></tr>
+        <tr><td><label>postcode</label></td><td><input class="form-control" type="text" ng-model="adres.postcode"/></td></tr>
+        
+        <tr><td><label>emailadres</label></td><td><input class="form-control" type="text" ng-model="contact.email"/></td></tr>
+        <tr><td><label>telefoonnummer</label></td><td><input class="form-control" type="text" ng-model="contact.telefoon"/></td></tr>
+        <tr><td><label>gsmnummer</label></td><td><input class="form-control" type="text" ng-model="contact.gsm"/></td></tr>
+        <tr><td><label>faxnummer</label></td><td><input class="form-control" type="text" ng-model="contact.fax"/></td></tr>
+        
+        
+        <tr><td><label>rijbewijsnummer</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.rijbewijsnr"/></td></tr>
+        <tr><td><label>rijbewijscategorie</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.rijbewijscat"/></td></tr>
+        <tr><td><label>geldigtot</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.geldigtot"/></td></tr>
+        <tr><td><label>ADR certificaat</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.adrcertificaat"/></td></tr>
+        <tr><td><label>Medisch attest</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.medischattest"/></td></tr>
+        <tr><td><label>tankkaartnummer</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.tankkaartnr"/></td></tr>
+        <tr><td><label>tachograafnummer</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.tachograafnr"/></td></tr>
+        <tr><td><label>tachograaf totaal</label></td><td><input class="form-control" type="text" ng-model="rijbewijsgegevens.tachograaftot"/></td></tr>
+        
+        <tr><td><label>rijksregisternummer</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.rijksregisternr"/></td></tr>
+        <tr><td><label>siskaart</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.siskaart"/></td></tr>
+        <tr><td><label>identiteitsnummer</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.identiteitsnr"/></td></tr>
+        <tr><td><label>pernsioensnummer</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.pensioennr"/></td></tr>
+        <tr><td><label>geboorteplaats</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.geboorteplaats"/></td></tr>
+        <tr><td><label>geboortedatum</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.geboortedatum"/></td></tr>
+        <tr><td><label>IBAN</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.iban"/></td></tr>
+        <tr><td><label>BIC</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.bic"/></td></tr>
+        <tr><td><label>burgerlijke stand</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.burgerstand"/></td></tr>
+        <tr><td><label>aantal kinderen</label></td><td><input class="form-control" type="text" ng-model="persoonsinfo.aantalkinderen"/></td></tr>
+        
+    </table>  
+</div>

@@ -1,0 +1,28 @@
+<div class="col-md-6">
+    <div class="form-group">
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="laadgegevens"/> 
+    </div>
+    <div class="form-group bottom">
+        <a class="btn btn-default btn-lg" href="index.html#/admin/oplegger/{{laadgegeven.laadid}}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        <div class="btn-group pull-right">
+        <button ng-click="edit()" class="btn btn-primary btn-lg" ng-hide="buttonedit"><span class="glyphicon glyphicon-edit"></span>&nbsp;WIJZIGEN</button>
+        </div>
+        <div class="btn-group pull-right">
+        <button ng-click="save()" class="btn btn-success btn-lg" ng-hide="buttonsave" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;OPSLAAN</button>
+        <button ng-click="cancel()" class="btn btn-danger btn-lg" ng-hide="buttonsave"><span class="glyphicon glyphicon-stop"></span>&nbsp;ANNULEREN</button>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <table class="table table-striped">
+        <tr><td><label>tarragewicht</label></td><td><input class="form-control" type="text" value="{{laadgegeven.tarragewicht}}" ng-model="laadgegeven.tarragewicht" ng-disabled="state"/></td></tr>
+        <tr><td><label>laadvermogen</label></td><td><input class="form-control" type="text" value="{{laadgegeven.laadvermogen}}" ng-model="laadgegeven.laadvermogen" ng-disabled="state"/></td></tr>
+        <tr><td><label>laadvolume</label></td><td><input class="form-control" type="text" value="{{laadgegeven.laadvolume}}" ng-model="laadgegeven.laadvolume" ng-disabled="state"/></td></tr>
+        <tr><td><label>laadmeters</label></td><td><input class="form-control" type="text" value="{{laadgegeven.laadmeters}}" ng-model="laadgegeven.laadmeters" ng-disabled="state"/></td></tr>
+        <tr><td><label>lengte</label></td><td><input class="form-control" type="text" value="{{laadgegeven.lengte}}" ng-model="laadgegeven.lengte" ng-disabled="state"/></td></tr>
+        <tr><td><label>breedte</label></td><td><input class="form-control" type="text" value="{{laadgegeven.breedte}}" ng-model="laadgegeven.breedte" ng-disabled="state"/></td></tr>
+        <tr><td><label>hoogte</label></td><td><input class="form-control" type="text" value="{{laadgegeven.hoogte}}" ng-model="laadgegeven.hoogte" ng-disabled="state"/></td></tr>
+        <tr><td><label>aantal assen</label></td><td><input class="form-control" type="text" value="{{laadgegeven.aantalassen}}" ng-model="laadgegeven.aantalassen" ng-disabled="state"/></td></tr>    
+        <tr><td><label>motor norm</label></td><td><input class="form-control" type="text" value="{{laadgegeven.motornorm}}" ng-model="laadgegeven.motornorm" ng-disabled="state"/></td></tr>
+    </table> 
+</div>

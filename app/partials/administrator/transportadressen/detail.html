@@ -1,6 +1,6 @@
 <div class="col-md-6">
     <div class="form-group">
-        <input class="btn btn-primary btn-lg btn-block" type="submit" value="{{klant.voornaam}} {{klant.naam}}"/> 
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="{{transport.naam}}"/> 
     </div>
     <div class="form-group bottom">
         <a class="btn btn-default btn-lg" href="index.html#/admin/klanten"><span class="glyphicon glyphicon-arrow-left"></span></a>
@@ -15,20 +15,22 @@
 </div>
 <div class="col-md-6 list">
     <table class="table table-striped">
-        <tr><td><label>voornaam</label></td><td><input class="form-control" type="text" value="{{klant.voornaam}}" ng-model="klant.voornaam" ng-disabled="state"/></td></tr>
-        <tr><td><label>naam</label></td><td><input class="form-control" type="text" value="{{klant.naam}}" ng-model="klant.naam" ng-disabled="state"/></td></tr>
-        <tr><td><label>bedrijf</label></td><td><input class="form-control" type="text" value="{{klant.bedrijf}}" ng-model="klant.bedrijf" ng-disabled="state"/></td></tr>
+        <tr><td><label>naam</label></td><td><input class="form-control" type="text" value="{{transport.naam}}" ng-model="transport.naam" ng-disabled="state"/></td></tr>
         <tr><td><label>straat</label></td><td><input class="form-control" type="text" value="{{adres.straat}}" ng-model="adres.straat" ng-disabled="state"/></td></tr>
         <tr><td><label>nummer</label></td><td><input class="form-control" type="text" value="{{adres.nummer}}" ng-model="adres.nummer" ng-disabled="state"/></td></tr>
         <tr><td><label>bus</label></td><td><input class="form-control" type="text" value="{{adres.bus}}" ng-model="adres.bus" ng-disabled="state"/></td></tr>
         <tr><td><label>land</label></td><td><input class="form-control" type="text" value="{{adres.land}}" ng-model="adres.land" ng-disabled="state"/></td></tr>
         <tr><td><label>postcode</label></td><td><input class="form-control" type="text" value="{{adres.postcode}}" ng-model="adres.postcode" ng-disabled="state"/></td></tr>
-        <tr><td><label>website</label></td><td><input class="form-control" type="text" value="{{klant.website}}" ng-model="klant.website" ng-disabled="state"/></td></tr>
         <tr><td><label>email</label></td><td><input class="form-control" type="text" value="{{contact.email}}" ng-model="contact.email" ng-disabled="state"/></td></tr>
         <tr><td><label>telefoon</label></td><td><input class="form-control" type="text" value="{{contact.telefoon}}" ng-model="contact.telefoon" ng-disabled="state"/></td></tr>
         <tr><td><label>gsm</label></td><td><input class="form-control" type="text" value="{{contact.gsm}}" ng-model="contact.gsm" ng-disabled="state"/></td></tr>
         <tr><td><label>fax</label></td><td><input class="form-control" type="text" value="{{contact.fax}}" ng-model="contact.fax" ng-disabled="state"/></td></tr>
         <tr><td><label>taal</label></td><td><input class="form-control" type="text" value="{{taal.taalnaam}}" ng-model="taal.taalnaam" ng-disabled="state"/></td></tr>
-        <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" value="{{klant.actief}}" ng-model="klant.actief" ng-disabled="state"/></td></tr>
+        <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" value="{{transport.actief}}" ng-model="transport.actief" ng-disabled="state"/></td></tr>
+        <tr><td><label>soort adres</label></td><td><input class="form-control" type="text" value="{{transport.soortadres}}" ng-model="transport.soortadres" ng-disabled="state"/></td></tr>
+        <tr><td><label>vensteruren</label></td><td><input class="form-control" type="text" value="{{transport.vensteruren}}" ng-model="transport.vensteruren" ng-disabled="state"/></td></tr>
+        <tr><td><label>vrachtbeperking</label></td><td><input class="form-control" type="text" value="{{transport.vrachtbeperking}}" ng-model="transport.vrachtbeperking" ng-disabled="state"/></td></tr>
+        <tr><td><label>chauffeursbeperking</label></td><td><input class="form-control" type="text" value="{{transport.chauffeursbeperking}}" ng-model="transport.chauffeursbeperking" ng-disabled="state"/></td></tr>
+        <tr><td><label>vrij veld</label></td><td><input class="form-control" type="text" value="{{transport.vrijveld}}" ng-model="transport.vrijveld" ng-disabled="state"/></td></tr>
     </table>  
 </div>

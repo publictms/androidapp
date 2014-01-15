@@ -7,7 +7,7 @@
             <a ng-repeat="bericht in berichten" href="" class="list-group-item" ng-click="select(bericht)">
                 <span class="glyphicon glyphicon-eye-open pull-right" ng-if="bericht.gelezen"></span>
                 <span class="glyphicon glyphicon-eye-close pull-right" ng-if="!bericht.gelezen"></span>
-                <h4 class="list-group-item-heading">{{bericht.gebruikerid}}</h4>
+                <h4 class="list-group-item-heading">{{bericht.gebruikerid}} {{user.gebruikersnaam}}</h4>
                 <p class="list-group-item-text">{{bericht.berichttitel}}</p>
             </a>
         </div>

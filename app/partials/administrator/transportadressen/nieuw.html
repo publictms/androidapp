@@ -9,21 +9,22 @@
 </div>
 <div class="col-md-6">
     <table class="table table-striped">
-        <tr><td><label>voornaam</label></td><td><input class="form-control" type="text" ng-model="klant.voornaam"/></td></tr>
-        <tr><td><label>naam</label></td><td><input class="form-control" type="text" ng-model="klant.naam"/></td></tr>
-        <tr><td><label>bedrijf</label></td><td><input class="form-control" type="text" ng-model="klant.bedrijf"/></td></tr>
+        <tr><td><label>naam</label></td><td><input class="form-control" type="text" ng-model="transport.naam"/></td></tr>
         <tr><td><label>straat</label></td><td><input class="form-control" type="text" ng-model="adres.straat"/></td></tr>
         <tr><td><label>nummer</label></td><td><input class="form-control" type="text" ng-model="adres.nummer"/></td></tr>
         <tr><td><label>bus</label></td><td><input class="form-control" type="text" ng-model="adres.bus"/></td></tr>
         <tr><td><label>land</label></td><td><input class="form-control" type="text" ng-model="adres.land"/></td></tr>
         <tr><td><label>postcode</label></td><td><input class="form-control" type="text" ng-model="adres.postcode"/></td></tr>
-        <tr><td><label>website</label></td><td><input class="form-control" type="text" ng-model="klant.website"/></td></tr>
         <tr><td><label>email</label></td><td><input class="form-control" type="text" ng-model="contact.email"/></td></tr>
         <tr><td><label>telefoon</label></td><td><input class="form-control" type="text" ng-model="contact.telefoon"/></td></tr>
         <tr><td><label>gsm</label></td><td><input class="form-control" type="text" ng-model="contact.gsm"/></td></tr>
         <tr><td><label>fax</label></td><td><input class="form-control" type="text" ng-model="contact.fax"/></td></tr>
-        <tr><td><label>contact id</label></td><td><input class="form-control" type="text" ng-model="klant.contactid"/></td></tr>
-        <select ng-model="selection" ng-options="taal for taal in talen"></select>selection={{selection}}
-        <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" ng-model="klant.actief"/></td></tr>
+        <tr><td><label>taal</label></td><td><input class="form-control" type="text" ng-model="taal.taalnaam"/></td></tr>
+        <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" ng-model="transport.actief"/></td></tr>
+        <tr><td><label>soort adres</label></td><td><input class="form-control" type="text" ng-model="transport.soortadres"/></td></tr>
+        <tr><td><label>vensteruren</label></td><td><input class="form-control" type="text" ng-model="transport.vensteruren"/></td></tr>
+        <tr><td><label>vrachtbeperking</label></td><td><input class="form-control" type="text" ng-model="transport.vrachtbeperking"/></td></tr>
+        <tr><td><label>chauffeursbeperking</label></td><td><input class="form-control" type="text" ng-model="transport.chauffeursbeperking"/></td></tr>
+        <tr><td><label>vrij veld</label></td><td><input class="form-control" type="text" ng-model="transport.vrijveld"/></td></tr>
     </table>  
 </div>

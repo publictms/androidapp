@@ -1,6 +1,6 @@
 <div class="col-md-6">
     <div class="form-group">
-        <input class="btn btn-primary btn-lg btn-block" type="submit" value="KLANTEN"/> 
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="WERKNEMERS"/> 
     </div>
     <div class="form-group left-inner-addon">
         <span class="glyphicon glyphicon-search"></span>
@@ -13,11 +13,11 @@
 </div>
 <div class="col-md-6">
     <ul class="list-unstyled">
-        <!-- ng-repeat: Er wordt geïtereerd door de klanten -->
-        <li ng-repeat="klant in klanten | filter:query">
+        <!-- ng-repeat: Er wordt geïtereerd door de werknemers -->
+        <li ng-repeat="werknemer in werknemers | filter:query">
             <div class="btn-group btn-group-justified form-group">
-            <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/klant/{{klant.klantid}}/{{klant.adresid}}/{{klant.contactid}}/{{klant.taal}}">{{klant.voornaam}} {{klant.naam}}</a>
-            <a class="btn text-left btn-danger btn-lg" ng-click="delete(klant.klantid)">VERWIJDER</a>
+            <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/werknemer/{{werknemer.werknemerid}}/{{werknemer.adresid}}/{{werknemer.contactid}}/{{werknemer.taal}}/{{werknemer.rijbewijsid}}/{{werknemer.infoid}}">{{werknemer.voornaam}} {{werknemer.naam}}</a>
+            <a class="btn text-left btn-danger btn-lg" ng-click="delete(werknemer.werknemerid)">VERWIJDER</a>
             </div>
         </li>
     </ul>
