@@ -15,7 +15,7 @@
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de voertuigen -->
         <li ng-repeat="voertuig in voertuigen | filter:query">
-            <div class="btn-group btn-group-justified">
+            <div class="btn-group btn-group-justified form-group">
             <a class="btn text-left btn-primary btn-lg" ng-click="update(voertuig.voertuigid)">{{voertuig.nummerplaat}}</a>
             <a class="btn text-left btn-danger btn-lg" ng-click="delete(voertuig.voertuigid)">VERWIJDER</a>
             </div>

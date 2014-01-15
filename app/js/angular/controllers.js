@@ -89,24 +89,13 @@ angular.module('myApp.controllers', ['ngResource']).
                 delete: {method: 'DELETE', params: {id: '@id'}}
             });
 
-            /*return {
-             Voertuig: $resource('http://localhost:8084/publictms/voertuig/get/:id?CALLBACK=JSONP_CALLBACK', {id: '@id'}, {})
-             };*/
-
         }).
         factory('VoertuigenFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {
                 all: {method: 'GET', isArray: true},
-                create: {method: 'POST'},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
                 update: {method: 'PUT'}
-            });
-
-        }).
-                factory('addFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/voertuig/', {}, {
-                create: {method: 'POST'}
             });
 
         }).
@@ -135,8 +124,9 @@ angular.module('myApp.controllers', ['ngResource']).
             };
 
             $scope.delete = function(voertuigId) {
+                var delVoertuig = $scope.voertuigen[voertuigId];
                 VoertuigFactory.delete({id: voertuigId});
-                $scope.voertuigen = VoertuigenFactory.all();
+                $scope.voertuigen = $scope.voertuigen.splice(delVoertuig);
             };
 
         }).
@@ -163,9 +153,9 @@ angular.module('myApp.controllers', ['ngResource']).
             };
         }).
         controller('createCtrl', function($scope, $location, VoertuigenFactory) {
-            var voertuig = {"nummerplaat":"1-ttt-666","actief":true,"omschrijving":"mercedes","voertuigtype":"lichtevracht","bouwjaar":"2013/05","datumin":"2013-06-08","datumuit":"2019-08-02","chassisnummer":"WDB1vghvgv31j082409","motornummer":"6805","vergunning":true,"vergunninggeldigtot":"2018-08-25","vrijveld":"dit is een test","opleggerid":1};
+            //var voertuig = {"nummerplaat":"abc-123","actief":true,"omschrijving":"mercedes","voertuigtype":"lichtevracht","bouwjaar":"2013/05","datumin":"2013-06-08","datumuit":"2019-08-02","chassisnummer":"WDB1vghvgv31j082409","motornummer":"6805","vergunning":true,"vergunninggeldigtot":"2018-08-25","vrijveld":"dit is een test","opleggerid":1};
             $scope.create = function() {
-                VoertuigenFactory.create(voertuig);
+                VoertuigenFactory.create($scope.voertuig);
                 $location.path('/admin/voertuigen');
             };
         }).
