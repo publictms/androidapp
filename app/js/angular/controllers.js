@@ -95,7 +95,7 @@ angular.module('myApp.controllers', ['ngResource']).
             return $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {
                 all: {method: 'GET', isArray: true},
                 create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT'}
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
             });
 
         }).
@@ -113,7 +113,12 @@ angular.module('myApp.controllers', ['ngResource']).
         }).
         // Controller om de voertuigen en de functies te koppelen aan de view
         controller('voertuigCtrl', function($scope, $location, VoertuigFactory, VoertuigenFactory) {
-            $scope.voertuigen = VoertuigenFactory.all();
+            
+            $scope.getList = function() {
+                VoertuigenFactory.all(function(data){
+                    $scope.voertuigen = data;
+                });
+            }
             
             $scope.add = function() {
                 $location.path('admin/voertuigen/nieuw');
@@ -124,13 +129,15 @@ angular.module('myApp.controllers', ['ngResource']).
             };
 
             $scope.delete = function(voertuigId) {
-                var delVoertuig = $scope.voertuigen[voertuigId];
-                VoertuigFactory.delete({id: voertuigId});
-                $scope.voertuigen = $scope.voertuigen.splice(delVoertuig);
+                VoertuigFactory.delete({id: voertuigId}, function() {
+                    $scope.getList();
+                });
             };
+            
+            $scope.getList();
 
         }).
-        controller('detailCtrl', function($scope, $routeParams, VoertuigFactory) {
+        controller('detailCtrl', function($scope, $routeParams, VoertuigFactory, VoertuigenFactory) {
             $scope.state = true;
             $scope.voertuig = VoertuigFactory.show({id: $routeParams.id});
             $scope.buttonedit = false;
@@ -141,7 +148,7 @@ angular.module('myApp.controllers', ['ngResource']).
                 $scope.buttonsave = false;
             };
             $scope.save = function() {
-                VoertuigFactory.save($scope.voertuig);
+                VoertuigenFactory.update($scope.voertuig);
                 $scope.state = true;
                 $scope.buttonedit = false;
                 $scope.buttonsave = true;
@@ -154,6 +161,7 @@ angular.module('myApp.controllers', ['ngResource']).
         }).
         controller('createCtrl', function($scope, $location, VoertuigenFactory) {
             //var voertuig = {"nummerplaat":"abc-123","actief":true,"omschrijving":"mercedes","voertuigtype":"lichtevracht","bouwjaar":"2013/05","datumin":"2013-06-08","datumuit":"2019-08-02","chassisnummer":"WDB1vghvgv31j082409","motornummer":"6805","vergunning":true,"vergunninggeldigtot":"2018-08-25","vrijveld":"dit is een test","opleggerid":1};
+            $scope.voertuig = {"nummerplaat":"","actief":null,"omschrijving":"","voertuigtype":"","bouwjaar":"","datumin":"","datumuit":"","chassisnummer":"","motornummer":"","vergunning":null,"vergunninggeldigtot":"","vrijveld":"","opleggerid":null}
             $scope.create = function() {
                 VoertuigenFactory.create($scope.voertuig);
                 $location.path('/admin/voertuigen');
