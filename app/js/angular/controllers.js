@@ -7,7 +7,7 @@ angular.module('myApp.controllers', ['ngResource']).
 
         // KLANTEN
         // FACTORY
-        // Factory voor de tabel klanten
+        // Factory voor de tabel klant
         // In deze factory kan men een klant ophalen of verwijderen
         factory('KlantFactory', function($resource) {
 
@@ -30,24 +30,24 @@ angular.module('myApp.controllers', ['ngResource']).
         // CONTROLLER
         // Controller om de klanten te tonen en om een klant te verwijderen
         controller('klantCtrl', function($scope, $location, KlantFactory, KlantenFactory) {
-            
+
             // Haal de lijst van klanten op
             $scope.getList = function() {
                 KlantenFactory.all(function(data) {
                     $scope.klanten = data;
                 });
             };
-            
+
             // Navigeer naar een nieuwe klant aanmaken
             $scope.add = function() {
                 $location.path('admin/klanten/nieuw');
             };
-            
+
             // Navigeer naar de details van een klant
             $scope.update = function(klantId) {
                 $location.path('admin/klant/' + klantId);
             };
-            
+
             // Verwijder een klant
             $scope.delete = function(klantId) {
                 KlantFactory.delete({id: klantId}, function() {
@@ -58,12 +58,14 @@ angular.module('myApp.controllers', ['ngResource']).
             $scope.getList();
 
         }).
-        controller('klantDetailCtrl', function($scope, $routeParams, KlantFactory, KlantenFactory, AdresFactory, ContactFactory, TaalFactory) {
+        // Controller om de details van een klant te tonen en te wijzigen
+        controller('klantDetailCtrl', function($scope, $routeParams, KlantFactory, KlantenFactory, AdresFactory, ContactFactory, TaalFactory, TalenFactory) {
             $scope.state = true;
             $scope.klant = KlantFactory.show({id: $routeParams.id});
             $scope.adres = AdresFactory.show({id: $routeParams.id});
             $scope.contact = ContactFactory.show({id: $routeParams.id});
             $scope.taal = TaalFactory.show({id: $routeParams.id});
+            $scope.talen = TalenFactory.all();
             $scope.edit = function() {
                 $scope.state = false;
             };
@@ -75,144 +77,23 @@ angular.module('myApp.controllers', ['ngResource']).
                 $scope.state = true;
             };
         }).
+        // Controller om een nieuwe klant toe te voegen
         controller('klantCreateCtrl', function($scope, $location, $timeout, KlantenFactory, AdressenFactory, ContactenFactory, TalenFactory) {
             $scope.talen = TalenFactory.all();
             $scope.create = function(adres, contact, klant) {
                 AdressenFactory.create(adres, function() {
                     ContactenFactory.create(contact, function() {
                         KlantenFactory.create(klant, function() {
-                            
+
                         })
                     });
                 });
-
             };
         }).
-        factory('GebruikerFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/gebruiker/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('GebruikersFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/gebruiker/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        // Factory voor de tabel voertuigen
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        
-        factory('AdresFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/adres/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('AdressenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/adres/?CALLBACK=JSONP_CALLBACK', {}, {
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        factory('ContactFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/contact/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('ContactenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/contact/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        factory('TaalFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/taal/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('TalenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/taal/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        // Factory voor de tabel voertuigen
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('VoertuigFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/voertuig/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('VoertuigenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        // Factory voor de tabel opleggers
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('OpleggerFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/oplegger/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('OpleggersFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/oplegger/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        factory('LaadgegevenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/laadgegevens/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('LaadgegevensFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/laadgegevens/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
+        // TRANSPORTADRESSEN
+        // FACTORY
+        // Factory voor de tabel transportadres
+        // In deze factory kan men een transportadres ophalen of verwijderen
         factory('TransportFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/transport/:id?CALLBACK=JSONP_CALLBACK', {}, {
@@ -221,6 +102,7 @@ angular.module('myApp.controllers', ['ngResource']).
             });
 
         }).
+        // In deze factory kan men alle transportadressen ophalen, wijzigen of een nieuwe toevoegen
         factory('TransportenFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/transport/?CALLBACK=JSONP_CALLBACK', {}, {
@@ -230,153 +112,28 @@ angular.module('myApp.controllers', ['ngResource']).
             });
 
         }).
-        // Factory voor de tabel werknemers
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('WerknemerFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/werknemer/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('WerknemersFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/werknemer/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        factory('RijbewijsFactory', function($resource) {
-            return $resource('http://localhost:8084/publictms/rijbewijsgegevens/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-        }).
-        factory('RijbewijzenFactory', function($resource) {
-            return $resource('http://localhost:8084/publictms/rijbewijsgegevens/?CALLBACK=JSONP_CALLBACK', {}, {
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-        }).
-        factory('PersoonsinfoFactory', function($resource) {
-            return $resource('http://localhost:8084/publictms/persoonsinfo/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-        }).
-        factory('PersoonsinfosFactory', function($resource) {
-            return $resource('http://localhost:8084/publictms/persoonsinfo/?CALLBACK=JSONP_CALLBACK', {}, {
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-        }).
-        // Factory voor de tabel voertuigen
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('BerichtFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/bericht/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('BerichtenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/bericht/?CALLBACK=JSONP_CALLBACK', {}, {
-                create: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
-        // Controller om de voertuigen en de functies te koppelen aan de view
-        controller('voertuigCtrl', function($scope, $location, VoertuigFactory, VoertuigenFactory) {
-
-            $scope.getList = function() {
-                VoertuigenFactory.all(function(data) {
-                    $scope.voertuigen = data;
-                });
-            };
-
-            $scope.add = function() {
-                $location.path('admin/voertuigen/nieuw');
-            };
-
-            $scope.update = function(voertuigId) {
-                $location.path('admin/voertuig/' + voertuigId);
-            };
-
-            $scope.delete = function(voertuigId) {
-                VoertuigFactory.delete({id: voertuigId}, function() {
-                    $scope.getList();
-                });
-            };
-
-            $scope.getList();
-
-        }).
-        controller('detailCtrl', function($scope, $routeParams, VoertuigFactory, VoertuigenFactory) {
-            $scope.state = true;
-            $scope.voertuig = VoertuigFactory.show({id: $routeParams.id});
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
-            $scope.edit = function() {
-                $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
-            };
-            $scope.save = function() {
-                VoertuigenFactory.update($scope.voertuig);
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-            $scope.cancel = function() {
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-        }).
-        controller('createCtrl', function($scope, $location, $timeout, VoertuigenFactory) {
-            $scope.create = function(voertuig) {
-                VoertuigenFactory.create(voertuig, function() {
-                    $timeout(function() {
-                        $location.path('/admin/voertuigen');
-                    });
-                });
-
-            };
-        }).
-        
-        controller('adminOpdrachttCtrl', function($scope, KlantenFactory) {
-
-            $scope.getList = function() {
-                KlantenFactory.all(function(data) {
-                    $scope.klanten = data;
-                });
-            };
-
-            $scope.getList();
-
-        }).
-        // Controller om de voertuigen en de functies te koppelen aan de view
+        // CONTROLLER
+        // Controller om de transportadressen te tonen en om een transportadres te verwijderen
         controller('transportCtrl', function($scope, $location, TransportFactory, TransportenFactory) {
 
+            // Haal de lijst van transportadressen op
             $scope.getList = function() {
                 TransportenFactory.all(function(data) {
                     $scope.transporten = data;
                 });
             };
 
+            // Navigeer naar een nieuw transportadres aanmaken
             $scope.add = function() {
                 $location.path('admin/transporten/nieuw');
             };
 
+            // Navigeer naar de details van een transportadres
             $scope.update = function(transportId) {
                 $location.path('admin/transport/' + transportId);
             };
 
+            // Verwijder een transportadres
             $scope.delete = function(transportId) {
                 TransportFactory.delete({id: transportId}, function() {
                     $scope.getList();
@@ -386,31 +143,25 @@ angular.module('myApp.controllers', ['ngResource']).
             $scope.getList();
 
         }).
+        // Controller om de details van een transportadres te tonen en te wijzigen
         controller('transportDetailCtrl', function($scope, $routeParams, TransportFactory, TransportenFactory, AdresFactory, ContactFactory, TaalFactory) {
             $scope.state = true;
             $scope.transport = TransportFactory.show({id: $routeParams.id});
             $scope.adres = AdresFactory.show({id: $routeParams.id});
             $scope.contact = ContactFactory.show({id: $routeParams.id});
             $scope.taal = TaalFactory.show({id: $routeParams.id});
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
             $scope.edit = function() {
                 $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
             };
             $scope.save = function() {
                 TransportenFactory.update($scope.transport);
                 $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
             };
             $scope.cancel = function() {
                 $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
             };
         }).
+        // Controller om een nieuw transportadres toe te voegen
         controller('transportCreateCtrl', function($scope, $location, $timeout, TransportenFactory) {
             $scope.create = function(transport) {
                 TransportenFactory.create(transport, function() {
@@ -418,26 +169,130 @@ angular.module('myApp.controllers', ['ngResource']).
                         $location.path('/admin/transporten');
                     });
                 });
-
             };
         }).
-        // Controller om de opleggers en de functies te koppelen aan de view
+        // VOERTUIGEN
+        // FACTORY
+        // Factory voor de tabel voertuig
+        // In deze factory kan men een voertuig ophalen of verwijderen
+        factory('VoertuigFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/voertuig/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle voertuigen ophalen, wijzigen of een nieuwe toevoegen
+        factory('VoertuigenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/voertuig/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // CONTROLLER
+        // Controller om de voertuigen te tonen en om een voertuig te verwijderen
+        controller('voertuigCtrl', function($scope, $location, VoertuigFactory, VoertuigenFactory) {
+
+            // Haal de lijst van voertuigen op
+            $scope.getList = function() {
+                VoertuigenFactory.all(function(data) {
+                    $scope.voertuigen = data;
+                });
+            };
+
+            // Navigeer naar een nieuw voertuig aanmaken
+            $scope.add = function() {
+                $location.path('admin/voertuigen/nieuw');
+            };
+
+            // Navigeer naar de details van een voertuig
+            $scope.update = function(voertuigId) {
+                $location.path('admin/voertuig/' + voertuigId);
+            };
+
+            // Verwijder een voertuig
+            $scope.delete = function(voertuigId) {
+                VoertuigFactory.delete({id: voertuigId}, function() {
+                    $scope.getList();
+                });
+            };
+
+            $scope.getList();
+
+        }).
+        // Controller om de details van een voertuig te tonen en te wijzigen
+        controller('detailCtrl', function($scope, $routeParams, VoertuigFactory, VoertuigenFactory) {
+            $scope.state = true;
+            $scope.voertuig = VoertuigFactory.show({id: $routeParams.id});
+            $scope.edit = function() {
+                $scope.state = false;
+            };
+            $scope.save = function() {
+                VoertuigenFactory.update($scope.voertuig);
+                $scope.state = true;
+            };
+            $scope.cancel = function() {
+                $scope.state = true;
+            };
+        }).
+        // Controller om een nieuw voertuig toe te voegen
+        controller('createCtrl', function($scope, $location, $timeout, VoertuigenFactory) {
+            $scope.create = function(voertuig) {
+                VoertuigenFactory.create(voertuig, function() {
+                    $timeout(function() {
+                        $location.path('/admin/voertuigen');
+                    });
+                });
+            };
+        }).
+        // OPLEGGERS
+        // FACTORY
+        // Factory voor de tabel oplegger
+        // In deze factory kan men een oplegger ophalen of verwijderen
+        factory('OpleggerFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/oplegger/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle opleggers ophalen, wijzigen of een nieuwe toevoegen
+        factory('OpleggersFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/oplegger/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // CONTROLLER
+        // Controller om de opleggers te tonen en om een oplegger te verwijderen
         controller('opleggerCtrl', function($scope, $location, OpleggerFactory, OpleggersFactory) {
 
+            // Haal de lijst van opleggers op
             $scope.getList = function() {
                 OpleggersFactory.all(function(data) {
                     $scope.opleggers = data;
                 });
-            }
+            };
 
+            // Navigeer naar een nieuwe oplegger aanmaken
             $scope.add = function() {
                 $location.path('admin/opleggers/nieuw');
             };
 
+            // Navigeer naar de details van een oplegger
             $scope.update = function(opleggerId) {
                 $location.path('admin/oplegger/' + opleggerId);
             };
 
+            // Verwijder een oplegger
             $scope.delete = function(opleggerId) {
                 OpleggerFactory.delete({id: opleggerId}, function() {
                     $scope.getList();
@@ -447,28 +302,22 @@ angular.module('myApp.controllers', ['ngResource']).
             $scope.getList();
 
         }).
+        // Controller om de details van een oplegger te tonen en te wijzigen
         controller('opleggerDetailCtrl', function($scope, $routeParams, OpleggerFactory, OpleggersFactory) {
             $scope.state = true;
             $scope.oplegger = OpleggerFactory.show({id: $routeParams.id});
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
             $scope.edit = function() {
                 $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
             };
             $scope.save = function() {
                 OpleggersFactory.update($scope.oplegger);
                 $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
             };
             $scope.cancel = function() {
                 $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
             };
         }).
+        // Controller om een nieuwe oplegger toe te voegen
         controller('opleggerCreateCtrl', function($scope, $location, OpleggersFactory, data) {
             $scope.create = function(oplegger) {
                 OpleggersFactory.create(oplegger, function() {
@@ -476,48 +325,52 @@ angular.module('myApp.controllers', ['ngResource']).
                         $location.path('/admin/opleggers');
                     });
                 });
+            };
+        }).
+        // WERKNEMERS
+        // FACTORY
+        // Factory voor de tabel werknemer
+        // In deze factory kan men een werknemer ophalen of verwijderen
+        factory('WerknemerFactory', function($resource) {
 
-            };
+            return $resource('http://localhost:8084/publictms/werknemer/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
         }).
-        // Controller om de laadgegevens en de functies te koppelen aan de view
-        controller('laadgegevensDetailCtrl', function($scope, $routeParams, LaadgegevenFactory, LaadgegevensFactory) {
-            $scope.state = true;
-            $scope.laadgegeven = LaadgegevenFactory.show({id: $routeParams.id});
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
-            $scope.edit = function() {
-                $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
-            };
-            $scope.save = function() {
-                LaadgegevensFactory.update($scope.laadgegeven);
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-            $scope.cancel = function() {
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
+        // In deze factory kan men alle werknemers ophalen, wijzigen of een nieuwe toevoegen
+        factory('WerknemersFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/werknemer/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
         }).
-        controller('laadGegevensCreateCtrl', function($scope, $location, LaadgegevensFactory, OpleggersFactory, data) {
-            //$scope.both = data.getProperty();
-            //console.log($scope);
-        }).
+        // CONTROLLER
+        // Controller om de werknemers te tonen en om een werknemer te verwijderen
         controller('werknemerCtrl', function($scope, $location, WerknemersFactory, WerknemerFactory) {
 
+            // Haal de lijst van werknemers op
             $scope.getList = function() {
                 WerknemersFactory.all(function(data) {
                     $scope.werknemers = data;
                 });
-            }
+            };
 
+            // Navigeer naar een nieuwe werknemer aanmaken
             $scope.add = function() {
                 $location.path('admin/werknemers/nieuw');
             };
 
+            // Navigeer naar de details van een werknemer
+            $scope.update = function(werknemerId) {
+                $location.path('admin/werknemer/' + werknemerId);
+            };
+
+            // Verwijder een werknemer
             $scope.delete = function(werknemerId) {
                 WerknemerFactory.delete({id: werknemerId}, function() {
                     $scope.getList();
@@ -525,6 +378,7 @@ angular.module('myApp.controllers', ['ngResource']).
             };
             $scope.getList();
         }).
+        // Controller om de details van een werknemer te tonen en te wijzigen
         controller('werknemerDetailCtrl', function($scope, $routeParams, WerknemerFactory, WerknemersFactory, AdresFactory, ContactFactory, TaalFactory, RijbewijsFactory, PersoonsinfoFactory, AdressenFactory, ContactenFactory, TalenFactory, RijbewijzenFactory, PersoonsinfosFactory) {
             $scope.state = true;
             $scope.werknemer = WerknemerFactory.show({id: $routeParams.id});
@@ -533,12 +387,8 @@ angular.module('myApp.controllers', ['ngResource']).
             $scope.taal = TaalFactory.show({id: $routeParams.id});
             $scope.rijbewijsgegevens = RijbewijsFactory.show({id: $routeParams.id});
             $scope.persoonsinfo = PersoonsinfoFactory.show({id: $routeParams.id});
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
             $scope.edit = function() {
                 $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
             };
             $scope.save = function() {
                 WerknemersFactory.update($scope.werknemer);
@@ -548,29 +398,207 @@ angular.module('myApp.controllers', ['ngResource']).
                 RijbewijzenFactory.update($scope.rijbewijsgegevens);
                 PersoonsinfosFactory.update($scope.persoonsinfo);
                 $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
             };
             $scope.cancel = function() {
                 $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
             };
         }).
-        /* controller('werknemerCreateCtrl', function($scope, $location, WerknemerFactory) {
-         $scope.voertuig = {"nummerplaat":"","actief":null,"omschrijving":"","voertuigtype":"","bouwjaar":"","datumin":"","datumuit":"","chassisnummer":"","motornummer":"","vergunning":null,"vergunninggeldigtot":"","vrijveld":"","opleggerid":null}
-         $scope.create = function() {
-         VoertuigenFactory.create($scope.voertuig);
-         $location.path('/admin/voertuigen');
-         };
-         }).*/
-        // Controller om de voertuigen en de functies te koppelen aan de view
-        controller('berichtCtrl', function($scope, $location, BerichtFactory, GebruikerFactory) {
+        // Controller om een nieuwe werknemers toe te voegen
+        controller('werknemerCreateCtrl', function($scope, $location, WerknemersFactory) {
+            $scope.create = function(werknemer) {
+                WerknemersFactory.create(werknemer, function() {
+                    $timeout(function() {
+                        $location.path('/admin/werknemers');
+                    });
+                });
+            };
+        }).
+        // LAADGEGEVENS
+        // FACTORY
+        // Factory voor de tabel laadgegevens
+        // In deze factory kan men een laadgegeven ophalen of verwijderen
+        factory('LaadgegevenFactory', function($resource) {
 
-            /*$scope.getUser = function(id) {
-             var user = GebruikerFactory.show({id: id});
-             $scope.user = user;
-             };*/
+            return $resource('http://localhost:8084/publictms/laadgegevens/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle laadgegevens ophalen, wijzigen of een nieuwe toevoegen
+        factory('LaadgegevensFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/laadgegevens/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // CONTROLLER
+        // Controller om de details van een laadgegeven te tonen en te wijzigen
+        controller('laadgegevensDetailCtrl', function($scope, $routeParams, LaadgegevenFactory, LaadgegevensFactory) {
+            $scope.state = true;
+            $scope.laadgegeven = LaadgegevenFactory.show({id: $routeParams.id});
+            $scope.edit = function() {
+                $scope.state = false;
+            };
+            $scope.save = function() {
+                LaadgegevensFactory.update($scope.laadgegeven);
+                $scope.state = true;
+            };
+            $scope.cancel = function() {
+                $scope.state = true;
+            };
+        }).
+        controller('laadGegevensCreateCtrl', function($scope, $location, LaadgegevensFactory, OpleggersFactory, data) {
+            //$scope.both = data.getProperty();
+            //console.log($scope);
+        }).
+        // GEBRUIKERS
+        // FACTORY
+        // Factory voor de tabel gebruiker
+        // In deze factory kan men een gebruiker ophalen of verwijderen
+        factory('GebruikerFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/gebruiker/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle werknemers ophalen, wijzigen of een nieuwe toevoegen
+        factory('GebruikersFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/gebruiker/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // ADRESSEN
+        // FACTORY
+        // Factory voor de tabel adres
+        // In deze factory kan men een gebruiker ophalen of verwijderen
+        factory('AdresFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/adres/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle werknemers wijzigen of een nieuwe toevoegen
+        factory('AdressenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/adres/?CALLBACK=JSONP_CALLBACK', {}, {
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // CONTACTEN
+        // FACTORY
+        // Factory voor de tabel contact
+        // In deze factory kan men een contact ophalen of verwijderen
+        factory('ContactFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/contact/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle contacten ophalen, wijzigen of een nieuwe toevoegen
+        factory('ContactenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/contact/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // TALEN
+        // FACTORY
+        // Factory voor de tabel taal
+        // In deze factory kan men een taal ophalen of verwijderen
+        factory('TaalFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/taal/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle talen ophalen, wijzigen of een nieuwe toevoegen
+        factory('TalenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/taal/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // RIJBEWIJSGEGEVENS
+        // FACTORY
+        // Factory voor de tabel rijbewijsgegevens
+        // In deze factory kan men een rijbewijsgegeven ophalen of verwijderen
+        factory('RijbewijsFactory', function($resource) {
+            return $resource('http://localhost:8084/publictms/rijbewijsgegevens/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+        }).
+        // In deze factory kan men alle rijbewijsgegevens wijzigen of een nieuwe toevoegen
+        factory('RijbewijzenFactory', function($resource) {
+            return $resource('http://localhost:8084/publictms/rijbewijsgegevens/?CALLBACK=JSONP_CALLBACK', {}, {
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+        }).
+        // PERSOONSINFO
+        // FACTORY
+        // Factory voor de tabel persoonsinfo
+        // In deze factory kan men een persoonsinfo ophalen of verwijderen
+        factory('PersoonsinfoFactory', function($resource) {
+            return $resource('http://localhost:8084/publictms/persoonsinfo/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+        }).
+        // In deze factory kan men alle persoonsinfo wijzigen of een nieuwe toevoegen
+        factory('PersoonsinfosFactory', function($resource) {
+            return $resource('http://localhost:8084/publictms/persoonsinfo/?CALLBACK=JSONP_CALLBACK', {}, {
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+        }).
+        // BERICHTEN
+        // FACTORY
+        // Factory voor de tabel BERICHTEN
+        // In deze factory kan men een berichten ophalen of verwijderen
+        factory('BerichtFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/bericht/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle berichten wijzigen of een nieuwe toevoegen
+        factory('BerichtenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/bericht/?CALLBACK=JSONP_CALLBACK', {}, {
+                create: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // CONTROLLER
+        // Controller om de berichten op te halen en een bericht te verwijderen
+        controller('berichtCtrl', function($scope, $location, BerichtFactory) {
 
             $scope.getList = function(id) {
                 BerichtFactory.query({id: id}, (function(data) {
@@ -596,6 +624,7 @@ angular.module('myApp.controllers', ['ngResource']).
             $scope.getList(1);
 
         }).
+        // Controller om een nieuw bericht te verzenden
         controller('nieuwBerichtCtrl', function($scope, $location, $timeout, BerichtenFactory) {
             $scope.send = function(bericht) {
                 BerichtenFactory.create(bericht, function() {
@@ -606,7 +635,8 @@ angular.module('myApp.controllers', ['ngResource']).
 
             };
         }).
-        // Controller om de navigatie en de functies te koppelen aan de view
+        // NAVIAGTIE
+        // CONTROLLER
         controller('MapCtrl',
                 function MapCtrl($scope) {
                     $scope.gmap = {

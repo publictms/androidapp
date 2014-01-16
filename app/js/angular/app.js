@@ -35,7 +35,7 @@ angular.module('myApp', [
                 $routeProvider.when('/admin/transport/:id/:aid/:cid/:tid', {templateUrl: 'partials/administrator/transportadressen/detail.html', controller: 'transportDetailCtrl'});
                 $routeProvider.when('/admin/transporten/nieuw', {templateUrl: 'partials/administrator/transportadressen/nieuw.html', controller: 'transportCreateCtrl'});
                 $routeProvider.when('/admin/werknemers', {templateUrl: 'partials/administrator/werknemers/werknemers.html', controller: 'werknemerCtrl'});
-                $routeProvider.when('/admin/werknemer/:id/:aid/:cid/:tid/:rid/:iid', {templateUrl: 'partials/administrator/werknemers/detailwerknemer.html', controller: 'werknemerDetailCtrl'});
+                $routeProvider.when('/admin/werknemer/:id/:aid/:cid/:tid/:rid/:iid', {templateUrl: 'partials/administrator/werknemers/detail.html', controller: 'werknemerDetailCtrl'});
                 $routeProvider.when('/admin/werknemers/nieuw', {templateUrl: 'partials/administrator/werknemers/nieuw.html', controller: 'werknemerCreateCtrl'});
                 $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/adminopdracht.html'});
                 $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/datum.html'});

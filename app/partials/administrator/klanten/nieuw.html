@@ -12,8 +12,8 @@
         <tr><td><label>voornaam</label></td><td><input class="form-control" type="text" ng-model="klant.voornaam"/></td></tr>
         <tr><td><label>naam</label></td><td><input class="form-control" type="text" ng-model="klant.naam"/></td></tr>
         <tr><td><label>bedrijf</label></td><td><input class="form-control" type="text" ng-model="klant.bedrijf"/></td></tr>
-        <tr><td><label>straat</label></td><td><input class="form-control" type="text" ng-model="adres.straat"/></td></tr>
-        <tr><td><label>nummer</label></td><td><input class="form-control" type="text" ng-model="adres.nummer"/></td></tr>
+        <tr><td><label>straat</label></td><td><input class="form-control" type="text" ng-model="klant.adresid"/></td></tr>
+        <tr><td><label>nummer</label></td><td><input class="form-control" type="text" ng-model="klant.contactid"/></td></tr>
         <tr><td><label>bus</label></td><td><input class="form-control" type="text" ng-model="adres.bus"/></td></tr>
         <tr><td><label>land</label></td><td><input class="form-control" type="text" ng-model="adres.land"/></td></tr>
         <tr><td><label>postcode</label></td><td><input class="form-control" type="text" ng-model="adres.postcode"/></td></tr>
@@ -22,8 +22,7 @@
         <tr><td><label>telefoon</label></td><td><input class="form-control" type="text" ng-model="contact.telefoon"/></td></tr>
         <tr><td><label>gsm</label></td><td><input class="form-control" type="text" ng-model="contact.gsm"/></td></tr>
         <tr><td><label>fax</label></td><td><input class="form-control" type="text" ng-model="contact.fax"/></td></tr>
-        <tr><td><label>contact id</label></td><td><input class="form-control" type="text" ng-model="klant.contactid"/></td></tr>
-        <tr><td><label>taal</label></td><td><select class="form-control" ng-options="taalnaam for taal in talen"></select></td></tr>
+        <tr><td><label>taal</label></td><td><select class="form-control" ng-init="klant.taal = klant.taal || talen[0]" ng-model="klant.taal" ng-options="taal.taalid as taal.taalnaam for taal in talen"></select></td></tr>
         <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" ng-model="klant.actief"/></td></tr>
     </table>  
 </div>
