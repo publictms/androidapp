@@ -12,9 +12,9 @@
 </div>
 <div class="col-md-6">
     <ul class="list-unstyled">
-        <li ng-repeat="klant in klanten | filter:query | orderBy:orderProp">
+        <li ng-repeat="opdracht in opdrachten | filter:query">
             <div class="form-group">
-            <a class="btn text-left btn-primary btn-lg btn-block" href="index.html#/admin/klant/{{klant.id}}">{{klant.name}}</a>
+            <a class="btn text-left btn-primary btn-lg btn-block" href="">{{klant.name}}</a>
             </div>
         </li>
     </ul>

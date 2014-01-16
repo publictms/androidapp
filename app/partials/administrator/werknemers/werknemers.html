@@ -14,7 +14,7 @@
 <div class="col-md-6">
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de werknemers -->
-        <li ng-repeat="werknemer in werknemers | filter:query">
+        <li ng-repeat="werknemer in werknemers | filter:query | orderBy:'voornaam'">
             <div class="btn-group btn-group-justified form-group">
             <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/werknemer/{{werknemer.werknemerid}}/{{werknemer.adresid}}/{{werknemer.contactid}}/{{werknemer.taal}}/{{werknemer.rijbewijsid}}/{{werknemer.infoid}}">{{werknemer.voornaam}} {{werknemer.naam}}</a>
             <a class="btn text-left btn-danger btn-lg" ng-click="delete(werknemer.werknemerid)">VERWIJDER</a>

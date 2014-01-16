@@ -5,8 +5,89 @@ angular.module('myApp.controllers', ['ngResource']).
         // In de factories haalt men de data op van de webservice
         // Deze data kan men later in de controllers opvragen
 
+        // KLANTEN
+        // FACTORY
         // Factory voor de tabel klanten
-        // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
+        // In deze factory kan men een klant ophalen of verwijderen
+        factory('KlantFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/klant/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        // In deze factory kan men alle klanten ophalen, wijzigen of een nieuwe toevoegen
+        factory('KlantenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/klant/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
+        // CONTROLLER
+        // Controller om de klanten te tonen en om een klant te verwijderen
+        controller('klantCtrl', function($scope, $location, KlantFactory, KlantenFactory) {
+            
+            // Haal de lijst van klanten op
+            $scope.getList = function() {
+                KlantenFactory.all(function(data) {
+                    $scope.klanten = data;
+                });
+            };
+            
+            // Navigeer naar een nieuwe klant aanmaken
+            $scope.add = function() {
+                $location.path('admin/klanten/nieuw');
+            };
+            
+            // Navigeer naar de details van een klant
+            $scope.update = function(klantId) {
+                $location.path('admin/klant/' + klantId);
+            };
+            
+            // Verwijder een klant
+            $scope.delete = function(klantId) {
+                KlantFactory.delete({id: klantId}, function() {
+                    $scope.getList();
+                });
+            };
+
+            $scope.getList();
+
+        }).
+        controller('klantDetailCtrl', function($scope, $routeParams, KlantFactory, KlantenFactory, AdresFactory, ContactFactory, TaalFactory) {
+            $scope.state = true;
+            $scope.klant = KlantFactory.show({id: $routeParams.id});
+            $scope.adres = AdresFactory.show({id: $routeParams.id});
+            $scope.contact = ContactFactory.show({id: $routeParams.id});
+            $scope.taal = TaalFactory.show({id: $routeParams.id});
+            $scope.edit = function() {
+                $scope.state = false;
+            };
+            $scope.save = function() {
+                KlantenFactory.update($scope.klant);
+                $scope.state = true;
+            };
+            $scope.cancel = function() {
+                $scope.state = true;
+            };
+        }).
+        controller('klantCreateCtrl', function($scope, $location, $timeout, KlantenFactory, AdressenFactory, ContactenFactory, TalenFactory) {
+            $scope.talen = TalenFactory.all();
+            $scope.create = function(adres, contact, klant) {
+                AdressenFactory.create(adres, function() {
+                    ContactenFactory.create(contact, function() {
+                        KlantenFactory.create(klant, function() {
+                            
+                        })
+                    });
+                });
+
+            };
+        }).
         factory('GebruikerFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/gebruiker/:id?CALLBACK=JSONP_CALLBACK', {}, {
@@ -26,23 +107,7 @@ angular.module('myApp.controllers', ['ngResource']).
         }).
         // Factory voor de tabel voertuigen
         // Parameter: $http (parameters met een $-teken zijn libraries die men kan 'injecten')
-        factory('KlantFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/klant/:id?CALLBACK=JSONP_CALLBACK', {}, {
-                show: {method: 'GET', params: {id: '@id'}},
-                delete: {method: 'DELETE', params: {id: '@id'}}
-            });
-
-        }).
-        factory('KlantenFactory', function($resource) {
-
-            return $resource('http://localhost:8084/publictms/klant/?CALLBACK=JSONP_CALLBACK', {}, {
-                all: {method: 'GET', isArray: true},
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
-                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
-            });
-
-        }).
+        
         factory('AdresFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/adres/:id?CALLBACK=JSONP_CALLBACK', {}, {
@@ -131,6 +196,23 @@ angular.module('myApp.controllers', ['ngResource']).
             });
 
         }).
+        factory('LaadgegevenFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/laadgegevens/:id?CALLBACK=JSONP_CALLBACK', {}, {
+                show: {method: 'GET', params: {id: '@id'}},
+                delete: {method: 'DELETE', params: {id: '@id'}}
+            });
+
+        }).
+        factory('LaadgegevensFactory', function($resource) {
+
+            return $resource('http://localhost:8084/publictms/laadgegevens/?CALLBACK=JSONP_CALLBACK', {}, {
+                all: {method: 'GET', isArray: true},
+                create: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+                update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+            });
+
+        }).
         factory('TransportFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/transport/:id?CALLBACK=JSONP_CALLBACK', {}, {
@@ -204,7 +286,7 @@ angular.module('myApp.controllers', ['ngResource']).
         factory('BerichtenFactory', function($resource) {
 
             return $resource('http://localhost:8084/publictms/bericht/?CALLBACK=JSONP_CALLBACK', {}, {
-                create: {method: 'POST', headers: {'Content-Type': 'application/json'}}
+                create: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
             });
 
         }).
@@ -266,8 +348,8 @@ angular.module('myApp.controllers', ['ngResource']).
 
             };
         }).
-        // Controller om de voertuigen en de functies te koppelen aan de view
-        controller('klantCtrl', function($scope, $location, KlantFactory, KlantenFactory) {
+        
+        controller('adminOpdrachttCtrl', function($scope, KlantenFactory) {
 
             $scope.getList = function() {
                 KlantenFactory.all(function(data) {
@@ -275,58 +357,8 @@ angular.module('myApp.controllers', ['ngResource']).
                 });
             };
 
-            $scope.add = function() {
-                $location.path('admin/klanten/nieuw');
-            };
-
-            $scope.update = function(klantId) {
-                $location.path('admin/klant/' + klantId);
-            };
-
-            $scope.delete = function(klantId) {
-                KlantFactory.delete({id: klantId}, function() {
-                    $scope.getList();
-                });
-            };
-
             $scope.getList();
 
-        }).
-        controller('klantDetailCtrl', function($scope, $routeParams, KlantFactory, KlantenFactory, AdresFactory, ContactFactory, TaalFactory) {
-            $scope.state = true;
-            $scope.klant = KlantFactory.show({id: $routeParams.id});
-            $scope.adres = AdresFactory.show({id: $routeParams.id});
-            $scope.contact = ContactFactory.show({id: $routeParams.id});
-            $scope.taal = TaalFactory.show({id: $routeParams.id});
-            $scope.buttonedit = false;
-            $scope.buttonsave = true;
-            $scope.edit = function() {
-                $scope.state = false;
-                $scope.buttonedit = true;
-                $scope.buttonsave = false;
-            };
-            $scope.save = function() {
-                KlantenFactory.update($scope.klant);
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-            $scope.cancel = function() {
-                $scope.state = true;
-                $scope.buttonedit = false;
-                $scope.buttonsave = true;
-            };
-        }).
-        controller('klantCreateCtrl', function($scope, $location, $timeout, KlantenFactory, AdressenFactory, ContactenFactory, TalenFactory) {
-            $scope.talen = TalenFactory.all();
-            $scope.create = function(adres, contact, klant) {
-                AdressenFactory.create(adres, function() {
-                    ContactenFactory.create(contact, function() {
-
-                    });
-                });
-
-            };
         }).
         // Controller om de voertuigen en de functies te koppelen aan de view
         controller('transportCtrl', function($scope, $location, TransportFactory, TransportenFactory) {
@@ -439,7 +471,12 @@ angular.module('myApp.controllers', ['ngResource']).
         }).
         controller('opleggerCreateCtrl', function($scope, $location, OpleggersFactory, data) {
             $scope.create = function(oplegger) {
-                //data.setProperty(oplegger);
+                OpleggersFactory.create(oplegger, function() {
+                    $timeout(function() {
+                        $location.path('/admin/opleggers');
+                    });
+                });
+
             };
         }).
         // Controller om de laadgegevens en de functies te koppelen aan de view
@@ -530,10 +567,10 @@ angular.module('myApp.controllers', ['ngResource']).
         // Controller om de voertuigen en de functies te koppelen aan de view
         controller('berichtCtrl', function($scope, $location, BerichtFactory, GebruikerFactory) {
 
-            $scope.getUser = function(id) {
-                var user = GebruikerFactory.show({id: id});
-                $scope.user = user;
-            };
+            /*$scope.getUser = function(id) {
+             var user = GebruikerFactory.show({id: id});
+             $scope.user = user;
+             };*/
 
             $scope.getList = function(id) {
                 BerichtFactory.query({id: id}, (function(data) {
@@ -548,7 +585,7 @@ angular.module('myApp.controllers', ['ngResource']).
 
             $scope.delete = function(berichtId) {
                 BerichtFactory.delete({id: berichtId}, function() {
-                    $scope.getList(3);
+                    $scope.getList(1);
                 });
             };
 
@@ -556,11 +593,10 @@ angular.module('myApp.controllers', ['ngResource']).
                 $scope.bericht = bericht;
             };
 
-            $scope.getList(3);
+            $scope.getList(1);
 
         }).
         controller('nieuwBerichtCtrl', function($scope, $location, $timeout, BerichtenFactory) {
-            $scope.datum = new Date();
             $scope.send = function(bericht) {
                 BerichtenFactory.create(bericht, function() {
                     $timeout(function() {

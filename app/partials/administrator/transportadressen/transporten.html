@@ -14,7 +14,7 @@
 <div class="col-md-6">
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de klanten -->
-        <li ng-repeat="transport in transporten | filter:query">
+        <li ng-repeat="transport in transporten | filter:query | orderBy:'naam'">
             <div class="btn-group btn-group-justified form-group">
             <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/transport/{{transport.transportid}}/{{transport.adresid}}/{{transport.contactid}}/{{transport.taal}}">{{transport.naam}}</a>
             <a class="btn text-left btn-danger btn-lg" ng-click="delete(transport.transportid)">VERWIJDER</a>

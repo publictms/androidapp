@@ -14,7 +14,7 @@
 <div class="col-md-6">
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de voertuigen -->
-        <li ng-repeat="oplegger in opleggers | filter:query">
+        <li ng-repeat="oplegger in opleggers | filter:query  | orderBy:'nummerplaat'">
             <div class="btn-group btn-group-justified form-group">
             <a class="btn text-left btn-primary btn-lg" ng-click="update(oplegger.opleggerid)">{{oplegger.nummerplaat}}</a>
             <a class="btn text-left btn-danger btn-lg" ng-click="delete(oplegger.opleggerid)">VERWIJDER</a>

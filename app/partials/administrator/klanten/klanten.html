@@ -14,7 +14,7 @@
 <div class="col-md-6">
     <ul class="list-unstyled">
         <!-- ng-repeat: Er wordt geïtereerd door de klanten -->
-        <li ng-repeat="klant in klanten | filter:query">
+        <li ng-repeat="klant in klanten | filter:query | orderBy:'voornaam'">
             <div class="btn-group btn-group-justified form-group">
             <a class="btn text-left btn-primary btn-lg" href="index.html#/admin/klant/{{klant.klantid}}/{{klant.adresid}}/{{klant.contactid}}/{{klant.taal}}">{{klant.voornaam}} {{klant.naam}}</a>
             <a class="btn text-left btn-danger btn-lg" ng-click="delete(klant.klantid)">VERWIJDER</a>

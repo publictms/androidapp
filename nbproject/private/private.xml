@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/index.html</file>
-            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/berichten/nieuw.html</file>
-            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/berichten/berichten.html</file>
+            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/werknemers/werknemers.html</file>
+            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/klanten/nieuw.html</file>
             <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/js/angular/app.js</file>
+            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/werknemers/detailwerknemer.html</file>
+            <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/partials/administrator/klanten/detail.html</file>
             <file>file:/C:/Users/Wout/Documents/Periode%202/Project/PublicTMS/app/js/angular/controllers.js</file>
         </group>
     </open-files>

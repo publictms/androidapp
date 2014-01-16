@@ -11,8 +11,8 @@
 </div>
 <div class="col-md-6">
     <ul class="list-unstyled">
-        <li ng-repeat="klant in klanten | filter:query | orderBy:orderProp">
-            <a class="btn btn-primary btn-lg btn-block" href="index.html#/admin/opdrachten/{{klant.id}}">{{klant.name}}</a>
+        <li ng-repeat="klant in klanten | filter:query">
+            <a class="btn btn-primary btn-lg btn-block" href="index.html#/admin/klantopdrachten/{{klant.id}}">{{klant.voornaam}} {{klant.naam}}</a>
         </li>
     </ul>
 </div>
