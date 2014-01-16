@@ -24,8 +24,8 @@ angular.module('myApp', [
                 $routeProvider.when('/admin/klant/:id/:aid/:cid/:tid', {templateUrl: 'partials/administrator/klanten/detail.html', controller: 'klantDetailCtrl'});
                 $routeProvider.when('/admin/klanten/nieuw', {templateUrl: 'partials/administrator/klanten/nieuw.html', controller: 'klantCreateCtrl'});
                 $routeProvider.when('/admin/voertuigen', {templateUrl: 'partials/administrator/voertuigen/voertuigen.html', controller: 'voertuigCtrl'});
-                $routeProvider.when('/admin/voertuig/:id', {templateUrl: 'partials/administrator/voertuigen/detail.html', controller: 'detailCtrl'});
-                $routeProvider.when('/admin/voertuigen/nieuw', {templateUrl: 'partials/administrator/voertuigen/nieuw.html', controller: 'createCtrl'});
+                $routeProvider.when('/admin/voertuig/:id', {templateUrl: 'partials/administrator/voertuigen/detail.html', controller: 'voertuigDetailCtrl'});
+                $routeProvider.when('/admin/voertuigen/nieuw', {templateUrl: 'partials/administrator/voertuigen/nieuw.html', controller: 'voertuigCreateCtrl'});
                 $routeProvider.when('/admin/opleggers', {templateUrl: 'partials/administrator/opleggers/opleggers.html', controller: 'opleggerCtrl'});
                 $routeProvider.when('/admin/oplegger/:id', {templateUrl: 'partials/administrator/opleggers/detail.html', controller: 'opleggerDetailCtrl'});
                 $routeProvider.when('/admin/opleggers/nieuw', {templateUrl: 'partials/administrator/opleggers/nieuw.html', controller: 'opleggerCreateCtrl'});
@@ -38,7 +38,7 @@ angular.module('myApp', [
                 $routeProvider.when('/admin/werknemer/:id/:aid/:cid/:tid/:rid/:iid', {templateUrl: 'partials/administrator/werknemers/detail.html', controller: 'werknemerDetailCtrl'});
                 $routeProvider.when('/admin/werknemers/nieuw', {templateUrl: 'partials/administrator/werknemers/nieuw.html', controller: 'werknemerCreateCtrl'});
                 $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/adminopdracht.html'});
-                $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/datum.html'});
+                $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/opdracht.html', controller: 'opdrachtCreateCtrl'});
                 $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'planningCtrl'});
                 $routeProvider.when('/admin/berichten', {templateUrl: 'partials/administrator/berichten/berichten.html', controller: 'berichtCtrl'});
                 $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'nieuwBerichtCtrl'});

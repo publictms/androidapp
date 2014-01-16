@@ -1,0 +1,84 @@
+<div class="col-md-6">
+    <div class="form-group">
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="OPDRACHT"/> 
+    </div>
+    <div class="form-group bottom">
+        <a class="btn btn-default btn-lg" href="index.html#/admin/index"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        <a class="btn btn-success btn-lg pull-right" ng-click="create(opdracht)"><span class="glyphicon glyphicon-floppy-disk"></span>   OPSLAAN</a>
+    </div>
+</div>
+<div class="col-md-6">
+    <table class="table table-striped">
+        <tr>
+            <td>
+                <label>klant</label>
+            </td>
+            <td>
+                <a class="btn btn-success" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>&nbsp;nieuwe klant</a>
+            </td>
+            <td>
+                <select class="form-control" ng-init="opdracht.klantid = opdracht.klantid || klanten[0].klantid" ng-model="opdracht.klantid" ng-options="klant.klantid as klant.voornaam + ' ' + klant.naam for klant in klanten | orderBy:'voornaam'"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>datum</label>
+            </td>
+            <td></td>
+            <td>
+                <input class="form-control" type="date" ng-model="opdracht.datum"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>voertuig</label>
+            </td>
+            <td>
+                <a class="btn btn-success" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>&nbsp;nieuw voertuig</a>
+            </td>
+            <td>
+                <select class="form-control" ng-init="opdracht.voertuigid = opdracht.voertuigid || voertuigen[0]" ng-model="opdracht.voertuigid" ng-options="voertuig.voertuigid as voertuig.nummerplaat for voertuig in voertuigen  | orderBy:'nummerplaat'"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>chauffeur</label>
+            </td>
+            <td>
+                <a class="btn btn-success" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>&nbsp;nieuwe chauffeur</a>
+            </td>
+            <td>
+                <select class="form-control" ng-init="opdracht.werknemerid = opdracht.werknemerid || werknemers[0]" ng-model="opdracht.werknemerid" ng-options="werknemer.werknemerid as werknemer.voornaam + ' ' + werknemer.naam for werknemer in werknemers | orderBy:'voornaam'"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>oplegger</label>
+            </td>
+            <td>
+                <a class="btn btn-success" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>&nbsp;nieuwe chauffeur</a>
+            </td>
+            <td>
+                <select class="form-control" ng-init="opdracht.opleggerid = opdracht.opleggerid || opleggers[0]" ng-model="opdracht.opleggerid" ng-options="oplegger.opleggerid as oplegger.nummerplaat for oplegger in opleggers | orderBy:'nummerplaat'"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>klaar</label>
+            </td>
+            <td></td>
+            <td>
+                <input class="form-control" type="checkbox" ng-value="false" ng-model="opdracht.opdrachtklaar"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>vrijveld</label>
+            </td>
+            <td></td>
+            <td>
+                <input class="form-control" type="text" ng-model="opdracht.vrijveld"/>
+            </td>
+        </tr>
+    </table>  
+</div>

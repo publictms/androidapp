@@ -28,7 +28,7 @@
         <tr><td><label>telefoon</label></td><td><input class="form-control" type="text" value="{{contact.telefoon}}" ng-model="contact.telefoon" ng-disabled="state"/></td></tr>
         <tr><td><label>gsm</label></td><td><input class="form-control" type="text" value="{{contact.gsm}}" ng-model="contact.gsm" ng-disabled="state"/></td></tr>
         <tr><td><label>fax</label></td><td><input class="form-control" type="text" value="{{contact.fax}}" ng-model="contact.fax" ng-disabled="state"/></td></tr>
-        <tr><td><label>taal</label></td><td><input class="form-control" type="text" value="{{taal.taalnaam}}" ng-model="taal.taalnaam" ng-disabled="state"/></td></tr>
+        <tr><td><label>taal</label></td><td><select class="form-control" ng-init="taal = taal" ng-model="taal" ng-options="taal.taalid as taal.taalnaam for taal in talen" ng-disabled="state"></select></td></tr>
         <tr><td><label>actief</label></td><td><input class="form-control" type="checkbox" value="{{klant.actief}}" ng-model="klant.actief" ng-disabled="state"/></td></tr>
     </table>  
 </div>
