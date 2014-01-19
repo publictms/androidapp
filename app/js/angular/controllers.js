@@ -539,6 +539,33 @@ angular.module('myApp.controllers', ['ngResource']).
             $scope.voertuigen = VoertuigenFactory.all();
             $scope.opleggers = OpleggersFactory.all();
             $scope.werknemers = WerknemersFactory.all();
+
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1;
+            if (month < 10) {
+                month = "0" + month;
+            }
+            ;
+            var day = d.getDate();
+            $scope.date = year + "-" + month + "-" + day;
+
+            $scope.addKlant = function() {
+                $location.path('/admin/opdracht/klant');
+            };
+
+            $scope.addVoertuig = function() {
+                $location.path('/admin/opdracht/voertuig');
+            };
+
+            $scope.addWerknemer = function() {
+                $location.path('/admin/opdracht/werknemer');
+            };
+
+            $scope.addOplegger = function() {
+                $location.path('/admin/opdracht/oplegger');
+            };
+
             $scope.create = function(opdracht) {
                 OpdrachtenFactory.create(opdracht, function() {
                     $timeout(function() {
@@ -729,14 +756,29 @@ angular.module('myApp.controllers', ['ngResource']).
         }).
         // NAVIAGTIE
         // CONTROLLER
-        controller('MapCtrl',
-                function MapCtrl($scope) {
-                    $scope.gmap = {
-                        fromAddress: 'thuis',
-                        streetAddress: "vlinderstraat",
-                        businessWriteup: "test",
-                        businessTitle: "test",
-                        Lon: 50.924565,
-                        Lat: 5.313465
-                    };
-                });
+        controller('MapCtrl', function MapCtrl($scope) {
+            $scope.gmap = {
+                fromAddress: 'thuis',
+                streetAddress: "vlinderstraat",
+                businessWriteup: "test",
+                businessTitle: "test",
+                Lon: 50.924565,
+                Lat: 5.313465
+            };
+        }).
+        controller('MainSchedulerCtrl', function($scope) {
+            $scope.events = [
+                {id: 1, text: "Task A-12458",
+                    start_date: new Date(2013, 10, 12),
+                    end_date: new Date(2013, 10, 16)},
+                {id: 2, text: "Task A-83473",
+                    start_date: new Date(2014, 1, 5),
+                    end_date: new Date(2014, 1, 8)},
+                {id: 3, text: "Task A-123",
+                    start_date: new Date(2014, 1, 5),
+                    end_date: new Date(2014, 1, 13)}
+            ];
+
+            $scope.scheduler = {date: new Date(2013, 10, 1)};
+
+        });

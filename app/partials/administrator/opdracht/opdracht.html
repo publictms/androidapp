@@ -14,7 +14,7 @@
                 <label>klant</label>
             </td>
             <td>
-                <a class="btn btn-success" ng-click="add()"><span class="glyphicon glyphicon-plus"></span>&nbsp;nieuwe klant</a>
+                <a class="btn btn-success" ng-click="addKlant()"><span class="glyphicon glyphicon-plus"></span>&nbsp;nieuwe klant</a>
             </td>
             <td>
                 <select class="form-control" ng-init="opdracht.klantid = opdracht.klantid || klanten[0].klantid" ng-model="opdracht.klantid" ng-options="klant.klantid as klant.voornaam + ' ' + klant.naam for klant in klanten | orderBy:'voornaam'"></select>
@@ -26,7 +26,7 @@
             </td>
             <td></td>
             <td>
-                <input class="form-control" type="date" ng-model="opdracht.datum"/>
+                <input class="form-control" type="date" ng-init="opdracht.datum=date" ng-model="opdracht.datum"/>
             </td>
         </tr>
         <tr>
@@ -64,20 +64,20 @@
         </tr>
         <tr>
             <td>
-                <label>klaar</label>
-            </td>
-            <td></td>
-            <td>
-                <input class="form-control" type="checkbox" ng-value="false" ng-model="opdracht.opdrachtklaar"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <label>vrijveld</label>
             </td>
             <td></td>
             <td>
                 <input class="form-control" type="text" ng-model="opdracht.vrijveld"/>
+            </td>
+        </tr>
+        <tr  ng-hide="true">
+            <td>
+                <label>klaar</label>
+            </td>
+            <td></td>
+            <td>
+                <input class="form-control" type="checkbox" ng-init="opdracht.opdrachtklaar=false" ng-model="opdracht.opdrachtklaar"/>
             </td>
         </tr>
     </table>  

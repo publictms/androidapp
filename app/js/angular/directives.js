@@ -4,7 +4,6 @@
 
 
 angular.module('myApp.directives', []).
-        
         // Een directive voor Google Maps
         directive('gmap', function($window, $parse) {
             var counter = 0,
@@ -151,56 +150,70 @@ angular.module('myApp.directives', []).
                     ;
                 }
             };
-        });
-/*.
- directive('accessLevel', ['Auth', function(Auth) {
- return {
- restrict: 'A',
- link: function($scope, element, attrs) {
- var prevDisp = element.css('display')
- , userRole
- , accessLevel;
- 
- $scope.user = Auth.user;
- $scope.$watch('user', function(user) {
- if(user.role)
- userRole = user.role;
- updateCSS();
- }, true);
- 
- attrs.$observe('accessLevel', function(al) {
- if(al) accessLevel = $scope.$eval(al);
- updateCSS();
- });
- 
- function updateCSS() {
- if(userRole && accessLevel) {
- if(!Auth.authorize(accessLevel, userRole))
- element.css('display', 'none');
- else
- element.css('display', prevDisp);
- }
- }
- }
- };
- }]).
- directive('activeNav', ['$location', function($location) {
- return {
- restrict: 'A',
- link: function(scope, element, attrs) {
- var nestedA = element.find('a')[0];
- var path = nestedA.href;
- 
- scope.location = $location;
- scope.$watch('location.absUrl()', function(newPath) {
- if (path === newPath) {
- element.addClass('active');
- } else {
- element.removeClass('active');
- }
- });
- }
- 
- };
- 
- }]);*/
+        }).
+        // Een directive voor de planning
+        directive('dhxScheduler', function() {
+            return {
+                restrict: 'A',
+                scope: false,
+                transclude: true,
+                template: '<div class="dhx_cal_navline" ng-transclude></div><div class="dhx_cal_header"></div><div class="dhx_cal_data"></div>',
+                link: function($scope, $element, $attrs, $controller) {
+                    //default state of the scheduler
+                    if (!$scope.scheduler)
+                        $scope.scheduler = {};
+                    $scope.scheduler.mode = $scope.scheduler.mode || "month";
+                    $scope.scheduler.date = $scope.scheduler.date || new Date();
+
+                    //watch data collection, reload on changes
+                    $scope.$watch($attrs.data, function(collection) {
+                        scheduler.clearAll();
+                        scheduler.parse(collection, "json");
+                    }, true);
+
+                    //watch mode and date
+                    $scope.$watch(function() {
+                        return $scope.scheduler.mode + $scope.scheduler.date.toString();
+                    }, function(nv, ov) {
+                        var mode = scheduler.getState();
+                        if (nv.date !== mode.date || nv.mode !== mode.mode)
+                            scheduler.setCurrentView($scope.scheduler.date, $scope.scheduler.mode);
+                    }, true);
+
+                    //size of scheduler
+                    $scope.$watch(function() {
+                        return $element[0].offsetWidth + "." + $element[0].offsetHeight;
+                    }, function() {
+                        scheduler.setCurrentView();
+                    });
+
+                    //styling for dhtmlx scheduler
+                    $element.addClass("dhx_cal_container");
+
+                    //init scheduler
+                    scheduler.init($element[0], $scope.scheduler.mode, $scope.scheduler.date);
+                }
+            };
+        }).
+        directive('dhxTemplate', ['$filter', function($filter) {
+                scheduler.aFilter = $filter;
+
+                return {
+                    restrict: 'AE',
+                    terminal: true,
+                    link: function($scope, $element, $attrs, $controller) {
+                        $element[0].style.display = 'none';
+
+                        var template = $element[0].innerHTML;
+                        template = template.replace(/[\r\n]/g, "").replace(/"/g, "\\\"").replace(/\{\{event\.([^\}]+)\}\}/g, function(match, prop) {
+                            if (prop.indexOf("|") !== -1) {
+                                var parts = prop.split("|");
+                                return "\"+scheduler.aFilter('" + (parts[1]).trim() + "')(event." + (parts[0]).trim() + ")+\"";
+                            }
+                            return '"+event.' + prop + '+"';
+                        });
+                        var templateFunc = Function('sd', 'ed', 'event', 'return "' + template + '"');
+                        scheduler.templates[$attrs.dhxTemplate] = templateFunc;
+                    }
+                };
+            }]);

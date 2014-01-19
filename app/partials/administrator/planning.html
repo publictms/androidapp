@@ -1,9 +1,18 @@
-<div class="col-md-12">
-    <div class="form-group">
-        <table class="table table-striped">
-            
-        </table>
-    </div>
+<div class="row">
+    <div data="events" dhx-scheduler style="height:600px; width:800px;">
+		<div class="dhx_cal_prev_button">&nbsp;</div>
+		<div class="dhx_cal_next_button">&nbsp;</div>
+		<div class="dhx_cal_today_button"></div>
+		<div class="dhx_cal_date"></div>
+		<div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+		<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>    
+
+		<div dhx-template="event_bar_text">
+			<strong>#{{event.id}}</strong>: {{event.text | uppercase}}
+		</div>
+	</div>
+</div>
+<div class="row">
     <div class="form-group bottom">
         <a class="btn btn-default btn-lg" href="index.html#/admin"><span class="glyphicon glyphicon-arrow-left"></span></a>
         <a class="btn btn-success btn-lg pull-right" href="index.html#/admin/new"><span class="glyphicon glyphicon-plus"></span>&nbsp;VOEG TOE</a>

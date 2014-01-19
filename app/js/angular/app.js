@@ -7,7 +7,8 @@ angular.module('myApp', [
     'myApp.filters',
     'myApp.services',
     'myApp.directives',
-    'myApp.controllers'
+    'myApp.controllers',
+    'ngTouch'
 ]).
         config(['$routeProvider', function($routeProvider) {
 
@@ -38,8 +39,12 @@ angular.module('myApp', [
                 $routeProvider.when('/admin/werknemer/:id/:aid/:cid/:tid/:rid/:iid', {templateUrl: 'partials/administrator/werknemers/detail.html', controller: 'werknemerDetailCtrl'});
                 $routeProvider.when('/admin/werknemers/nieuw', {templateUrl: 'partials/administrator/werknemers/nieuw.html', controller: 'werknemerCreateCtrl'});
                 $routeProvider.when('/admin/adminopdracht', {templateUrl: 'partials/administrator/adminopdracht.html'});
-                $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/opdracht.html', controller: 'opdrachtCreateCtrl'});
-                $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'planningCtrl'});
+                $routeProvider.when('/admin/opdracht', {templateUrl: 'partials/administrator/opdracht/opdracht.html', controller: 'opdrachtCreateCtrl'});
+                $routeProvider.when('/admin/opdracht/klant', {templateUrl: 'partials/administrator/opdracht/klantNieuw.html', controller: 'opdrachtCreateCtrl'});
+                $routeProvider.when('/admin/opdracht/voertuig', {templateUrl: 'partials/administrator/opdracht/voertuigNieuw.html', controller: 'opdrachtCreateCtrl'});
+                $routeProvider.when('/admin/opdracht/werknemer', {templateUrl: 'partials/administrator/opdracht/werknemerNieuw.html', controller: 'opdrachtCreateCtrl'});
+                $routeProvider.when('/admin/opdracht/oplegger', {templateUrl: 'partials/administrator/opdracht/opeggerNieuw.html', controller: 'opdrachtCreateCtrl'});
+                $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'MainSchedulerCtrl'});
                 $routeProvider.when('/admin/berichten', {templateUrl: 'partials/administrator/berichten/berichten.html', controller: 'berichtCtrl'});
                 $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'nieuwBerichtCtrl'});
 
