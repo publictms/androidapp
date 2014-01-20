@@ -754,7 +754,7 @@ angular.module('myApp.controllers', ['ngResource']).
 
             };
         }).
-        // NAVIAGTIE
+        // NAVIGATIE
         // CONTROLLER
         controller('MapCtrl', function MapCtrl($scope) {
             $scope.gmap = {
@@ -766,19 +766,112 @@ angular.module('myApp.controllers', ['ngResource']).
                 Lat: 5.313465
             };
         }).
-        controller('MainSchedulerCtrl', function($scope) {
+        // KALENDER
+        // CONTROLLER
+        
+        controller('CalendarCtrl', function($scope, OpdrachtenFactory) {
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            /* event source that pulls from google.com */
+            /*$scope.eventSource = {
+                url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic"
+            };*/
+            /* event source that contains custom events on the scope */
             $scope.events = [
-                {id: 1, text: "Task A-12458",
-                    start_date: new Date(2013, 10, 12),
-                    end_date: new Date(2013, 10, 16)},
-                {id: 2, text: "Task A-83473",
-                    start_date: new Date(2014, 1, 5),
-                    end_date: new Date(2014, 1, 8)},
-                {id: 3, text: "Task A-123",
-                    start_date: new Date(2014, 1, 5),
-                    end_date: new Date(2014, 1, 13)}
+                {title: 'Test 1', start: new Date(y, m, 1)},
+                {title: 'Test 2', start: new Date(y, m, d - 3), end: new Date(y, m, d + 2)},
+                {id: 1, title: 'Test 3', start: new Date(y, m, d - 3, 16, 0), allDay: false},
+                {id: 1, title: 'Test 3', start: new Date(y, m, d + 4, 16, 0), allDay: false},
+                {title: 'Test 4', start: new Date(y, m, d + 1, 19, 0), end: new Date(y, m, d + 1, 22, 30), allDay: false}
             ];
+            /* data from db */
+            $scope.getList = function() {
+                OpdrachtenFactory.all(function(data) {
+                    $scope.opdrachten = data;
+                });
+            };
+            
+            /* alert on eventClick */
+            $scope.alertEventOnClick = function(date, allDay, jsEvent, view) {
+                $scope.$apply(function() {
+                    $scope.alertMessage = ('Day Clicked ' + date);
+                });
+            };
+            /* alert on Drop */
+            $scope.alertOnDrop = function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
+                $scope.$apply(function() {
+                    $scope.alertMessage = ('Event Droped to make dayDelta ' + dayDelta);
+                });
+            };
+            /* alert on Resize */
+            $scope.alertOnResize = function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
+                $scope.$apply(function() {
+                    $scope.alertMessage = ('Event Resized to make dayDelta ' + minuteDelta);
+                });
+            };
+            /* add and removes an event source of choice */
+            $scope.addRemoveEventSource = function(sources, source) {
+                var canAdd = 0;
+                angular.forEach(sources, function(value, key) {
+                    if (sources[key] === source) {
+                        sources.splice(key, 1);
+                        canAdd = 1;
+                    }
+                });
+                if (canAdd === 0) {
+                    sources.push(source);
+                }
+            };
+            /* add custom event*/
+            $scope.addEvent = function() {
+                $scope.events.push({
+                    title: 'ne nieve',
+                    start: new Date(y, m, 28),
+                    end: new Date(y, m, 29)
+                });
+            };
+            /* remove event */
+            $scope.remove = function(index) {
+                $scope.events.splice(index, 1);
+            };
+            /* Change View */
+            $scope.changeView = function(view, calendar) {
+                calendar.fullCalendar('changeView', view);
+            };
+            /* Change View */
+            $scope.renderCalender = function(calendar) {
+                calendar.fullCalendar('render');
+            };
+            /* config object */
+            $scope.uiConfig = {
+                calendar: {
+                    height: 450,
+                    editable: true,
+                    header: {
+                        left: 'title',
+                        center: '',
+                        right: 'today prev,next'
+                    },
+                    dayClick: $scope.alertEventOnClick,
+                    eventDrop: $scope.alertOnDrop,
+                    eventResize: $scope.alertOnResize
+                }
+            };
 
-            $scope.scheduler = {date: new Date(2013, 10, 1)};
-
+            /*$scope.changeLang = function() {
+                if ($scope.changeTo === 'Hungarian') {
+                    $scope.uiConfig.calendar.dayNames = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
+                    $scope.uiConfig.calendar.dayNamesShort = ["Zon", "Maa", "Din", "Woe", "Don", "Vri", "Zat"];
+                    $scope.changeTo = 'Dutch';
+                } else {
+                    $scope.uiConfig.calendar.dayNames = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
+                    $scope.uiConfig.calendar.dayNamesShort = ["Zon", "Maa", "Din", "Woe", "Don", "Vri", "Zat"];
+                    $scope.changeTo = 'Hungarian';
+                }
+            };*/
+            /* event sources array*/
+            $scope.eventSources = [$scope.events, $scope.opdrachten];
         });

@@ -8,11 +8,11 @@ angular.module('myApp', [
     'myApp.services',
     'myApp.directives',
     'myApp.controllers',
-    'ngTouch'
+    'ngTouch',
+    'ui.calendar'
 ]).
+          constant('uiCalendarConfig', {}).
         config(['$routeProvider', function($routeProvider) {
-
-                //var access = routingConfig.accessLevels;
 
                 // ADMIN
                 // alle navigatie voor de pagina's van het administrator gedeelte
@@ -44,7 +44,7 @@ angular.module('myApp', [
                 $routeProvider.when('/admin/opdracht/voertuig', {templateUrl: 'partials/administrator/opdracht/voertuigNieuw.html', controller: 'opdrachtCreateCtrl'});
                 $routeProvider.when('/admin/opdracht/werknemer', {templateUrl: 'partials/administrator/opdracht/werknemerNieuw.html', controller: 'opdrachtCreateCtrl'});
                 $routeProvider.when('/admin/opdracht/oplegger', {templateUrl: 'partials/administrator/opdracht/opeggerNieuw.html', controller: 'opdrachtCreateCtrl'});
-                $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'MainSchedulerCtrl'});
+                $routeProvider.when('/admin/planning', {templateUrl: 'partials/administrator/planning.html', controller: 'CalendarCtrl'});
                 $routeProvider.when('/admin/berichten', {templateUrl: 'partials/administrator/berichten/berichten.html', controller: 'berichtCtrl'});
                 $routeProvider.when('/admin/berichten/nieuw', {templateUrl: 'partials/administrator/berichten/nieuw.html', controller: 'nieuwBerichtCtrl'});
 
@@ -62,30 +62,4 @@ angular.module('myApp', [
                 // Indien een route niet bestaat wordt er terug naar de loginpagina verwezen
                 $routeProvider.otherwise({redirectTo: 'login.html'});
 
-                /*$locationProvider.html5Mode(true);
-                 
-                 $httpProvider.interceptors.push(function($q, $location) {
-                 return {
-                 'responseError': function(response) {
-                 if(response.status === 401 || response.status === 403) {
-                 $location.path('/login');
-                 return $q.reject(response);
-                 }
-                 else {
-                 return $q.reject(response);
-                 }
-                 }
-                 }
-                 });*/
-
-            }]);/*.run(['$rootScope', '$location', '$http', 'Auth', function ($rootScope, $location, $http, Auth) {
-             
-             $rootScope.$on("$routeChangeStart", function (event, next, current) {
-             $rootScope.error = null;
-             if (!Auth.authorize(next.access)) {
-             if(Auth.isLoggedIn()) $location.path('/');
-             else                  $location.path('/login');
-             }
-             });
-             
-             }]);*/
+            }]);
